@@ -11,154 +11,488 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e5c48'/%3E%3Cpath d='M18 40 L30 20 L38 34 M34 40 L46 40' stroke='%23f4f2ea' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#f6f4ee;   --paper:oklch(97.2% 0.007 95);
     --paper2:#eeebe2;  --paper2:oklch(94.6% 0.011 95);
+    --paper3:#e4dfd2;
     --ink:#22302a;     --ink:oklch(26% 0.021 160);
     --ink2:#5b6a62;    --ink2:oklch(48% 0.018 160);
+    --ink3:#829289;
     --line:#d9d5c9;    --line:oklch(87% 0.012 110);
+    --line-strong:#b6b09f;
     --green:#2e5c48;   --green:oklch(42% 0.075 160);
     --green-deep:#1f4234; --green-deep:oklch(33% 0.062 160);
     --green-ink:#dbe8df;  --green-ink:oklch(91% 0.02 160);
     --green-dim:#9db8a9;  --green-dim:oklch(74% 0.04 160);
     --tint:#e3e9e2;    --tint:oklch(91.5% 0.017 160);
     --amber:#b98524;   --amber:oklch(64% 0.12 80);
+    --amber-soft:#faebd0;
     --d:"Bricolage Grotesque",Georgia,serif;
     --b:"Hanken Grotesk",-apple-system,"Segoe UI",sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font:16.5px/1.6 var(--b);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum"}
+  body{
+    background:var(--paper);
+    background-image:radial-gradient(var(--line) 0.65px, transparent 0.65px);
+    background-size:28px 28px;
+    color:var(--ink);
+    font:16.5px/1.6 var(--b);
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:"tnum";
+    overflow-x:hidden;
+  }
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:1140px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
   ::selection{background:var(--green);color:var(--green-ink)}
 
+  /* Utility & Ledger Accents */
+  .mono{font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+  .ledger-rule{border-top:1px solid var(--line);border-bottom:1px solid var(--line);height:3px;margin:28px 0}
+  .ledger-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink2);
+    border:1px solid var(--line);padding:4px 9px;border-radius:4px;
+    background:color-mix(in oklab,var(--paper2) 70%,transparent);
+  }
+  .ledger-double-line{
+    border-top:1px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+    padding:2px 0;
+  }
+
   /* ---------- nav ---------- */
-  nav{position:sticky;top:0;z-index:40;background:color-mix(in oklab,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav{position:sticky;top:0;z-index:50;background:color-mix(in oklab,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
   .logo{display:flex;align-items:center;gap:11px;font-family:var(--d);font-weight:800;font-size:19px;letter-spacing:-.2px}
   .logo svg{display:block}
+  .nav-center{display:flex;align-items:center;gap:32px}
   .nav-links{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--ink2)}
+  .nav-links a{position:relative;padding:4px 0;transition:color .18s}
   .nav-links a:hover{color:var(--ink)}
-  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:10px;font-weight:600;font-size:15.5px;line-height:1;transition:transform .18s cubic-bezier(.22,1,.36,1),background .18s}
+  .nav-links a::after{
+    content:"";position:absolute;bottom:0;left:0;width:0;height:1.5px;
+    background:var(--green);transition:width .2s ease;
+  }
+  .nav-links a:hover::after{width:100%}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:13px 24px;border-radius:10px;font-weight:600;font-size:15.5px;
+    line-height:1;cursor:pointer;
+    transition:transform .18s cubic-bezier(.22,1,.36,1),background .18s,border-color .18s,box-shadow .18s;
+  }
   .btn svg{transition:transform .18s cubic-bezier(.22,1,.36,1)}
-  .btn-green{background:var(--green);color:var(--green-ink)}
-  .btn-green:hover{background:var(--green-deep);transform:translateY(-1px)}
+  .btn-green{background:var(--green);color:var(--green-ink);box-shadow:0 1px 2px rgba(31,66,52,.12)}
+  .btn-green:hover{background:var(--green-deep);transform:translateY(-1px);box-shadow:0 6px 14px -3px rgba(31,66,52,.22)}
   .btn-green:hover svg{transform:translateX(3px)}
-  .btn-quiet{border:1px solid var(--line);color:var(--ink);background:transparent}
-  .btn-quiet:hover{border-color:var(--ink2)}
+  .btn-quiet{border:1px solid var(--line-strong);color:var(--ink);background:#ffffff}
+  .btn-quiet:hover{border-color:var(--ink);background:var(--paper);transform:translateY(-1px)}
   nav .btn{padding:11px 20px}
-  @media(max-width:760px){.nav-links{display:none}}
+  @media(max-width:820px){.nav-links{display:none}}
 
   /* ---------- hero ---------- */
-  .hero{padding:clamp(56px,9vh,104px) 0 clamp(56px,8vh,96px);overflow:hidden}
-  .hero-grid{display:grid;grid-template-columns:minmax(0,6.4fr) minmax(0,5.6fr);gap:clamp(36px,5vw,72px);align-items:center}
-  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
-  .pill{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--green-deep);background:var(--tint);border-radius:999px;padding:8px 16px;margin-bottom:26px}
+  .hero{padding:clamp(44px,7vh,84px) 0 clamp(54px,8vh,92px);position:relative}
+  .hero-folio-bar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-bottom:18px;margin-bottom:clamp(30px,4vh,48px);
+    border-bottom:1px solid var(--line);
+    font-size:11.5px;font-weight:600;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink3);
+  }
+  .hero-folio-bar span:first-child{display:flex;align-items:center;gap:12px}
+  .hero-folio-bar .dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  
+  .hero-grid{display:grid;grid-template-columns:minmax(0,6.2fr) minmax(0,5.8fr);gap:clamp(36px,5vw,72px);align-items:center}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+  
+  .pill{
+    display:inline-flex;align-items:center;gap:10px;font-size:13.5px;
+    font-weight:600;color:var(--green-deep);background:var(--tint);
+    border:1px solid color-mix(in oklab,var(--green) 22%,transparent);
+    border-radius:999px;padding:8px 16px;margin-bottom:24px;
+  }
   .pill i{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2.4s ease-out infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in oklab,var(--green) 45%,transparent)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
-  h1{font-family:var(--d);font-weight:800;font-size:clamp(40px,5.6vw,72px);line-height:1.02;letter-spacing:-.025em}
-  h1 em{font-style:normal;color:var(--green)}
-  .lead{color:var(--ink2);font-size:clamp(17px,1.6vw,19.5px);line-height:1.65;margin:26px 0 34px;max-width:30em}
+  
+  h1{font-family:var(--d);font-weight:800;font-size:clamp(40px,5.4vw,70px);line-height:1.02;letter-spacing:-.028em}
+  h1 em{font-style:normal;color:var(--green);position:relative}
+  h1 em::after{
+    content:"";position:absolute;left:0;bottom:-4px;width:100%;height:3px;
+    background:currentColor;opacity:.25;border-radius:2px;
+  }
+  .lead{color:var(--ink2);font-size:clamp(17px,1.55vw,19.5px);line-height:1.65;margin:26px 0 34px;max-width:31em}
   .lead b{color:var(--ink);font-weight:600}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .hero-note{margin-top:22px;font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:8px}
-  .hero-note svg{flex:none}
+  
+  .hero-note{
+    margin-top:26px;font-size:13.5px;color:var(--ink2);
+    display:flex;align-items:flex-start;gap:10px;
+    background:color-mix(in oklab,var(--paper2) 65%,transparent);
+    border-left:3px solid var(--green);
+    padding:10px 14px;border-radius:0 6px 6px 0;
+  }
+  .hero-note svg{flex:none;margin-top:2px}
 
-  /* staggered entrance */
+  /* staggered entrance animation */
   @media (prefers-reduced-motion:no-preference){
     .rise{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.16,1,.3,1) forwards}
-    .rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.26s}.rise.d4{animation-delay:.4s}
+    .rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.16s}.rise.d3{animation-delay:.26s}.rise.d4{animation-delay:.38s}
     @keyframes rise{to{opacity:1;transform:none}}
   }
 
-  /* ---------- product window ---------- */
-  .win{background:#fdfdfb;background:oklch(99% 0.004 95);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(30,40,35,.05),0 24px 60px -24px rgba(30,40,35,.25);overflow:hidden}
-  .win-bar{display:flex;align-items:center;gap:10px;padding:13px 18px;background:var(--green-deep);color:var(--green-ink)}
-  .win-bar .dots{display:flex;gap:6px}
-  .win-bar .dots i{width:9px;height:9px;border-radius:50%;background:color-mix(in oklab,var(--green-ink) 34%,transparent)}
-  .win-bar span.t{font-size:13px;font-weight:600;letter-spacing:.2px}
-  .win-bar time{margin-left:auto;font-size:12.5px;color:var(--green-dim)}
-  .feed{padding:6px 0}
-  .entry{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:15px 18px}
-  .entry + .entry{border-top:1px solid color-mix(in oklab,var(--line) 55%,transparent)}
-  .ava{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--tint);color:var(--green-deep)}
-  .ava.you{background:var(--ink);color:var(--paper)}
-  .entry .who{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
+  /* ---------- product window (Hero Terminal) ---------- */
+  .hero-win-wrap{position:relative}
+  .stamp-float{
+    position:absolute;top:-26px;right:-18px;z-index:10;
+    pointer-events:none;transform:rotate(7deg);
+    filter:drop-shadow(0 4px 10px rgba(46,92,72,.15));
+    transition:transform .4s ease;
+  }
+  .hero-win-wrap:hover .stamp-float{transform:rotate(5deg) scale(1.03)}
+  
+  .win{
+    background:#ffffff;
+    border:1px solid var(--line-strong);
+    border-radius:16px;
+    box-shadow:0 2px 4px rgba(30,40,35,.04), 0 24px 56px -16px rgba(30,40,35,.18);
+    overflow:hidden;position:relative;
+  }
+  .win-bar{
+    display:flex;align-items:center;gap:12px;padding:14px 18px;
+    background:var(--green-deep);color:var(--green-ink);
+    border-bottom:1px solid color-mix(in oklab,var(--green-ink) 18%,transparent);
+  }
+  .win-bar .dots{display:flex;gap:6.5px}
+  .win-bar .dots i{width:9px;height:9px;border-radius:50%;background:color-mix(in oklab,var(--green-ink) 35%,transparent)}
+  .win-bar span.t{font-size:13px;font-weight:600;letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+  .win-bar .verified-tag{
+    font-size:10px;font-weight:700;letter-spacing:.06em;
+    background:color-mix(in oklab,var(--green) 60%,transparent);
+    padding:2px 7px;border-radius:4px;color:#ffffff;
+  }
+  .win-bar time{margin-left:auto;font-size:12.5px;color:var(--green-dim);font-variant-numeric:tabular-nums}
+  
+  .feed{padding:6px 0;background-image:linear-gradient(to bottom, transparent 96%, color-mix(in oklab,var(--line) 40%,transparent) 96%);background-size:100% 26px}
+  .entry{display:grid;grid-template-columns:36px 1fr;gap:13px;padding:16px 20px;transition:background .2s ease}
+  .entry + .entry{border-top:1px solid color-mix(in oklab,var(--line) 70%,transparent)}
+  .entry:hover{background:color-mix(in oklab,var(--paper) 40%,transparent)}
+  
+  .ava{
+    width:34px;height:34px;border-radius:10px;
+    display:grid;place-items:center;
+    background:var(--tint);color:var(--green-deep);
+    border:1px solid color-mix(in oklab,var(--green) 20%,transparent);
+  }
+  .ava.you{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .entry .who{
+    font-size:11.5px;font-weight:700;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--green);margin-bottom:5px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .entry .who .role-badge{font-size:9.5px;font-weight:600;color:var(--ink2);letter-spacing:0.04em}
   .entry.you .who{color:var(--ink2)}
-  .entry p{font-size:14.2px;line-height:1.55;color:var(--ink)}
+  .entry p{font-size:14.3px;line-height:1.55;color:var(--ink)}
   .entry p b{font-weight:600}
-  .chips{display:flex;gap:8px;margin-top:11px}
-  .chip{font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:8px;border:1px solid var(--line);color:var(--ink2)}
+  
+  .chips{display:flex;gap:8px;margin-top:12px}
+  .chip{
+    font-family:var(--b);font-size:12.5px;font-weight:600;
+    padding:7px 14px;border-radius:8px;
+    border:1px solid var(--line-strong);color:var(--ink2);
+    background:#ffffff;cursor:pointer;
+    transition:all .18s ease;
+  }
+  .chip:hover{border-color:var(--ink);color:var(--ink);background:var(--paper)}
   .chip.ok{background:var(--green);border-color:var(--green);color:var(--green-ink)}
-  .tag-hold{color:var(--amber);font-weight:600}
+  .chip.ok:hover{background:var(--green-deep);border-color:var(--green-deep);color:#ffffff}
+  .chip-status-msg{
+    display:none;margin-top:10px;font-size:12px;font-weight:600;
+    color:var(--green-deep);background:var(--tint);
+    padding:6px 12px;border-radius:6px;border-left:3px solid var(--green);
+  }
+  .tag-hold{color:var(--amber);font-weight:600;background:var(--amber-soft);padding:1px 6px;border-radius:4px}
 
   /* ---------- section scaffolding ---------- */
-  section{padding:clamp(64px,10vh,110px) 0}
-  .sec-head{max-width:640px}
-  h2{font-family:var(--d);font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-.02em}
-  .sub{color:var(--ink2);font-size:17px;margin-top:16px;line-height:1.65}
+  section{padding:clamp(68px,9.5vh,110px) 0;position:relative}
+  .sec-top-line{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:11px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink3);
+    margin-bottom:20px;
+  }
+  .sec-head{max-width:680px}
+  h2{font-family:var(--d);font-weight:800;font-size:clamp(30px,3.6vw,46px);line-height:1.06;letter-spacing:-.022em}
+  .sub{color:var(--ink2);font-size:17.5px;margin-top:16px;line-height:1.65}
 
-  /* ---------- ledger (roles) ---------- */
-  .ledger{margin-top:52px;border-top:1px solid var(--ink)}
-  .row{display:grid;grid-template-columns:64px minmax(180px,.9fr) 1.6fr auto;gap:clamp(14px,3vw,36px);align-items:baseline;padding:26px 4px;border-bottom:1px solid var(--line);transition:background .2s}
+  /* ================================================================
+     SECTION 1: AI EMPLOYEES (#team) - ASYMMETRIC SPLIT DOSSIER
+     ================================================================ */
+  .team-split{
+    display:grid;grid-template-columns:minmax(0,4.2fr) minmax(0,7.8fr);
+    gap:clamp(32px,4vw,64px);align-items:start;margin-top:40px;
+  }
+  @media(max-width:920px){.team-split{grid-template-columns:1fr}}
+
+  .team-manifest{
+    position:sticky;top:100px;
+    background:#ffffff;border:1px solid var(--line-strong);
+    border-radius:14px;padding:clamp(24px,3vw,32px);
+    box-shadow:0 1px 3px rgba(30,40,35,.05);
+  }
+  .team-manifest .card-header{
+    border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .team-manifest h4{
+    font-family:var(--d);font-weight:800;font-size:17px;letter-spacing:-.01em;
+    color:var(--green-deep);
+  }
+  .team-manifest p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin-bottom:20px}
+  .manifest-specs{list-style:none;margin-top:16px;border-top:1px solid var(--line);padding-top:16px}
+  .manifest-specs li{
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:13px;padding:8px 0;border-bottom:1px dashed color-mix(in oklab,var(--line) 80%,transparent);
+  }
+  .manifest-specs li span.k{color:var(--ink2)}
+  .manifest-specs li span.v{font-weight:600;color:var(--green-deep)}
+  .doc-preview-box{
+    margin-top:22px;background:var(--paper);border:1px solid var(--line);
+    border-radius:10px;padding:14px;text-align:center;
+  }
+  .doc-preview-box img{max-width:100%;height:auto;display:block;margin:0 auto}
+
+  /* Ledger rows container */
+  .ledger{border-top:2px solid var(--ink)}
+  .row{
+    display:grid;grid-template-columns:54px 1.4fr 2.2fr auto;
+    gap:clamp(14px,2.2vw,28px);align-items:baseline;
+    padding:28px 12px;border-bottom:1px solid var(--line);
+    transition:background .18s ease,border-color .18s ease;
+    position:relative;
+  }
+  .row::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:transparent;transition:background .18s ease;
+  }
   .row:hover{background:color-mix(in oklab,var(--tint) 45%,transparent)}
-  .row .n{font-family:var(--d);font-weight:600;font-size:15px;color:var(--ink2)}
-  .row h3{font-family:var(--d);font-weight:800;font-size:clamp(19px,2vw,23px);letter-spacing:-.01em}
-  .row p{color:var(--ink2);font-size:15.5px;line-height:1.6;max-width:46em}
-  .row .out{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);white-space:nowrap}
-  @media(max-width:760px){.row{grid-template-columns:44px 1fr}.row p,.row .out{grid-column:2}}
+  .row:hover::before{background:var(--green)}
+  .row .n{font-family:var(--d);font-weight:700;font-size:14px;color:var(--ink3);letter-spacing:0.04em}
+  .row h3{font-family:var(--d);font-weight:800;font-size:clamp(19px,2vw,23px);letter-spacing:-.01em;color:var(--ink)}
+  .row p{color:var(--ink2);font-size:15px;line-height:1.62;max-width:44em}
+  .row .out{
+    font-size:11.5px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--green);
+    background:var(--tint);padding:6px 12px;border-radius:6px;
+    white-space:nowrap;border:1px solid color-mix(in oklab,var(--green) 22%,transparent);
+  }
+  @media(max-width:760px){
+    .row{grid-template-columns:44px 1fr;gap:12px;padding:22px 6px}
+    .row h3{grid-column:2}
+    .row p{grid-column:2}
+    .row .out{grid-column:2;justify-self:start;margin-top:6px}
+  }
 
-  /* ---------- steps ---------- */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,56px);margin-top:56px;counter-reset:step}
-  .step{border-top:2px solid var(--ink);padding-top:22px}
-  .step::before{counter-increment:step;content:"0" counter(step);font-family:var(--d);font-weight:800;font-size:15px;color:var(--green);display:block;margin-bottom:14px}
-  .step h3{font-family:var(--d);font-weight:800;font-size:20px;margin-bottom:10px;letter-spacing:-.01em}
-  .step p{color:var(--ink2);font-size:15.5px;line-height:1.62}
-  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  /* ================================================================
+     SECTION 2: HOW IT WORKS (#how) - SEQUENTIAL WORKFLOW CONVEYOR
+     ================================================================ */
+  .workflow-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:clamp(20px,3vw,36px);margin-top:54px;
+    counter-reset:step;position:relative;
+  }
+  @media(max-width:880px){.workflow-grid{grid-template-columns:1fr;gap:24px}}
 
-  /* ---------- green drench (why) ---------- */
-  .drench{background:var(--green-deep);color:var(--green-ink)}
-  .drench .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,88px);align-items:start}
-  .drench h2{color:oklch(97% 0.01 160)}
-  .drench .sub{color:var(--green-dim)}
-  .facts{border-top:1px solid color-mix(in oklab,var(--green-ink) 22%,transparent)}
-  .fact{display:grid;grid-template-columns:30px 1fr;gap:14px;padding:22px 0;border-bottom:1px solid color-mix(in oklab,var(--green-ink) 22%,transparent)}
-  .fact svg{margin-top:3px}
-  .fact b{display:block;font-weight:700;font-size:16.5px;margin-bottom:5px;color:oklch(97% 0.01 160)}
-  .fact p{font-size:15px;line-height:1.6;color:var(--green-dim)}
-  @media(max-width:860px){.drench .wrap{grid-template-columns:1fr}}
+  .workflow-card{
+    background:#ffffff;border:1px solid var(--line-strong);
+    border-radius:14px;padding:clamp(24px,3vw,34px);
+    display:flex;flex-direction:column;position:relative;
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .workflow-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px -8px rgba(30,40,35,.1)}
+  
+  .workflow-card .step-top{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:20px;
+  }
+  .workflow-card .step-num{
+    font-family:var(--d);font-weight:800;font-size:14px;
+    color:var(--green-deep);background:var(--tint);
+    padding:4px 10px;border-radius:6px;letter-spacing:.05em;
+  }
+  .workflow-card .step-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center}
+  .workflow-card h3{
+    font-family:var(--d);font-weight:800;font-size:21px;
+    margin-bottom:12px;letter-spacing:-.015em;
+  }
+  .workflow-card p{color:var(--ink2);font-size:15px;line-height:1.64;flex:1}
+  
+  /* Step 3 Highlighted: The Anchor of Human Trust */
+  .workflow-card.step-anchor{
+    background:var(--paper);border:2px solid var(--green);
+    box-shadow:0 4px 18px -4px rgba(46,92,72,.15);
+  }
+  .workflow-card.step-anchor::after{
+    content:"CORE RULE";position:absolute;top:-11px;right:22px;
+    font-size:10px;font-weight:800;letter-spacing:.08em;
+    background:var(--green);color:var(--green-ink);
+    padding:3px 10px;border-radius:4px;
+  }
 
-  /* ---------- pricing ---------- */
-  .plans{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fdfdfb;background:oklch(99% 0.004 95)}
-  .plan{padding:clamp(26px,3vw,38px);display:flex;flex-direction:column}
+  /* ================================================================
+     SECTION 3: WHY US (#why) - GREEN DRENCH / COMPLIANCE DOSSIER
+     ================================================================ */
+  .drench{
+    background:var(--green-deep);color:var(--green-ink);
+    padding:clamp(74px,11vh,120px) 0;position:relative;
+  }
+  .drench-grid{
+    display:grid;grid-template-columns:minmax(0,4.8fr) minmax(0,7.2fr);
+    gap:clamp(36px,5vw,76px);align-items:start;
+  }
+  @media(max-width:920px){.drench-grid{grid-template-columns:1fr;gap:40px}}
+
+  .drench h2{color:#ffffff}
+  .drench .sub{color:var(--green-dim);font-size:17.5px}
+  
+  .provenance-card{
+    background:color-mix(in oklab,var(--green) 35%,transparent);
+    border:1px solid color-mix(in oklab,var(--green-ink) 25%,transparent);
+    border-radius:12px;padding:22px 24px;margin-top:28px;
+    position:relative;
+  }
+  .provenance-meta{
+    display:flex;align-items:center;gap:14px;margin-bottom:12px;
+    font-size:11.5px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--green-dim);
+  }
+  .provenance-card p{font-size:14.5px;line-height:1.6;color:var(--green-ink)}
+  .provenance-stamp{margin-top:18px;display:flex;align-items:center;gap:10px}
+  .provenance-stamp img{max-height:42px;width:auto;opacity:.9}
+
+  /* 2x2 Bento compliance facts */
+  .compliance-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media(max-width:680px){.compliance-grid{grid-template-columns:1fr}}
+
+  .fact-tile{
+    background:color-mix(in oklab,var(--green) 22%,transparent);
+    border:1px solid color-mix(in oklab,var(--green-ink) 18%,transparent);
+    border-radius:12px;padding:24px 22px;
+    display:flex;flex-direction:column;gap:12px;
+    transition:background .2s ease,border-color .2s ease;
+  }
+  .fact-tile:hover{
+    background:color-mix(in oklab,var(--green) 36%,transparent);
+    border-color:color-mix(in oklab,var(--green-ink) 34%,transparent);
+  }
+  .fact-tile-head{display:flex;align-items:center;gap:10px}
+  .fact-tile-head svg{flex:none}
+  .fact-tile b{font-weight:700;font-size:16.5px;color:#ffffff;line-height:1.3}
+  .fact-tile p{font-size:14.5px;line-height:1.58;color:var(--green-dim)}
+
+  /* ================================================================
+     SECTION 4: PRICING (#pricing) - SALARY BENCHMARK & LEDGER TIERS
+     ================================================================ */
+  .pricing-benchmark-bar{
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    gap:14px;background:var(--paper2);border:1px solid var(--line);
+    border-radius:10px;padding:14px 22px;margin:32px 0 44px;
+    font-size:14px;color:var(--ink2);
+  }
+  .pricing-benchmark-bar strong{color:var(--ink);font-weight:700}
+  .pricing-benchmark-bar .tag-ratio{
+    font-size:12px;font-weight:700;letter-spacing:.05em;
+    color:var(--green-deep);background:var(--tint);
+    padding:4px 10px;border-radius:6px;border:1px solid var(--green-dim);
+  }
+
+  .plans{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    border:1px solid var(--line-strong);border-radius:16px;
+    overflow:hidden;background:#ffffff;
+    box-shadow:0 4px 16px -4px rgba(30,40,35,.06);
+  }
+  .plan{padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;position:relative}
   .plan + .plan{border-left:1px solid var(--line)}
-  .plan.hot{background:var(--tint)}
-  .plan .name{font-family:var(--d);font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .early{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green-deep);border:1px solid var(--green-dim);border-radius:999px;padding:3px 9px}
-  .amt{font-family:var(--d);font-weight:800;font-size:clamp(34px,3.4vw,44px);letter-spacing:-.02em;margin:18px 0 2px}
+  .plan.hot{
+    background:color-mix(in oklab,var(--tint) 65%,transparent);
+    box-shadow:inset 0 0 0 2px var(--green);
+  }
+  .plan .name{
+    font-family:var(--d);font-weight:800;font-size:19px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .early{
+    font-size:11px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--green-deep);
+    background:#ffffff;border:1px solid var(--green-dim);
+    border-radius:999px;padding:3px 10px;
+  }
+  .amt{font-family:var(--d);font-weight:800;font-size:clamp(36px,3.5vw,46px);letter-spacing:-.025em;margin:20px 0 4px;color:var(--ink)}
   .amt span{font-family:var(--b);font-size:14.5px;font-weight:500;color:var(--ink2);letter-spacing:0}
-  .plan ul{list-style:none;margin:20px 0 30px;flex:1}
-  .plan li{display:grid;grid-template-columns:20px 1fr;gap:10px;padding:8px 0;font-size:15px;color:var(--ink2)}
+  .plan ul{list-style:none;margin:24px 0 34px;flex:1}
+  .plan li{display:grid;grid-template-columns:20px 1fr;gap:11px;padding:8px 0;font-size:15px;color:var(--ink2)}
   .plan li svg{margin-top:4px}
-  .plan .btn{justify-content:center}
-  @media(max-width:860px){.plans{grid-template-columns:1fr}.plan + .plan{border-left:0;border-top:1px solid var(--line)}}
+  .plan .btn{justify-content:center;width:100%}
+  @media(max-width:880px){
+    .plans{grid-template-columns:1fr}
+    .plan + .plan{border-left:0;border-top:1px solid var(--line)}
+  }
 
-  /* ---------- cta ---------- */
-  .cta{padding-bottom:clamp(80px,12vh,130px)}
-  .cta-in{border-top:1px solid var(--ink);padding-top:clamp(40px,6vh,64px);display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
-  .cta h2{font-size:clamp(32px,4.2vw,56px)}
-  .cta-side{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+  /* ================================================================
+     SECTION 5: CTA (#cta) - PILOT INVITATION LETTERHEAD
+     ================================================================ */
+  .cta{padding-bottom:clamp(84px,12vh,130px)}
+  .cta-card{
+    background:#ffffff;
+    border:2px solid var(--ink);
+    border-radius:18px;
+    padding:clamp(36px,5vw,68px);
+    position:relative;
+    box-shadow:0 8px 32px -12px rgba(30,40,35,.15);
+  }
+  .cta-top-folio{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-bottom:18px;margin-bottom:28px;
+    border-bottom:1px dashed var(--line-strong);
+    font-size:11.5px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink2);
+  }
+  .cta-in{
+    display:grid;grid-template-columns:1.5fr 1fr;
+    gap:clamp(28px,5vw,64px);align-items:center;
+  }
+  @media(max-width:880px){.cta-in{grid-template-columns:1fr}}
+  .cta h2{font-size:clamp(32px,4.2vw,56px);letter-spacing:-.025em}
+  .cta-side{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
   .cta-mail{font-size:15px;color:var(--ink2)}
   .cta-mail a{color:var(--green-deep);font-weight:600;border-bottom:1px solid var(--green-dim)}
-  @media(max-width:860px){.cta-in{grid-template-columns:1fr}}
+  .cta-stamp-watermark{
+    position:absolute;bottom:20px;right:24px;
+    opacity:0.22;pointer-events:none;transform:rotate(-6deg);
+  }
 
   /* ---------- footer ---------- */
-  footer{border-top:1px solid var(--line);padding:36px 0 52px;font-size:14px;color:var(--ink2)}
-  .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
-  .foot .logo{font-size:16px}
+  footer{border-top:1px solid var(--line);padding:44px 0 60px;font-size:14px;color:var(--ink2);background:var(--paper2)}
+  .foot-double-rule{border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);height:3px;margin-bottom:34px}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  .foot .logo{font-size:17px}
+  .foot-col-text{max-width:420px;line-height:1.6}
+  .foot-legal{font-size:13.5px;line-height:1.6;color:var(--ink2)}
+  .foot-legal a{color:var(--green-deep);font-weight:600}
+
+  /* ---------- scroll-reveal motion ---------- */
+  .reveal{
+    opacity:0;transform:translateY(16px);
+    transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.active{opacity:1;transform:none}
 </style>
 </head>
 <body>
@@ -169,66 +503,86 @@
       <svg width="26" height="26" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#2e5c48"/><path d="M18 40 L30 20 L38 34 M34 40 L46 40" stroke="#f4f2ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
       AI Office
     </a>
-    <div class="nav-links">
-      <a href="#team">AI employees</a>
-      <a href="#how">How it works</a>
-      <a href="#why">Why us</a>
-      <a href="#pricing">Pricing</a>
+    <div class="nav-center">
+      <div class="nav-links">
+        <a href="#team">AI employees</a>
+        <a href="#how">How it works</a>
+        <a href="#why">Why us</a>
+        <a href="#pricing">Pricing</a>
+      </div>
     </div>
     <a class="btn btn-green" href="#cta">Join the pilot</a>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="pill rise"><i></i>Onboarding pilot companies in Georgia</span>
-      <h1 class="rise d1">AI employees for your <em>back office</em></h1>
-      <p class="lead rise d2">Finance, documents, contracts and daily reports, handled by a team of AI employees in your chat. <b>AI prepares the work. You approve it.</b> Nothing happens without you.</p>
-      <div class="hero-cta rise d3">
-        <a class="btn btn-green" href="#cta">Join the pilot <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn btn-quiet" href="#how">See how it works</a>
-      </div>
-      <p class="hero-note rise d4">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6z"/></svg>
-        Built on a platform running a real back office in production since May 2026
-      </p>
+  <div class="wrap">
+    <div class="hero-folio-bar rise">
+      <span><i class="dot"></i> REGISTER FOLIO: GEO-2026 // ADMISSION ONGOING</span>
+      <span class="mono">TBILISI, GEORGIA · PROD v1.4</span>
     </div>
 
-    <div class="win rise d3" aria-label="Product preview">
-      <div class="win-bar">
-        <span class="dots"><i></i><i></i><i></i></span>
-        <span class="t">AI Office · morning briefing</span>
-        <time>08:00</time>
+    <div class="hero-grid">
+      <div>
+        <span class="pill rise"><i></i>Onboarding pilot companies in Georgia</span>
+        <h1 class="rise d1">AI employees for your <em>back office</em></h1>
+        <p class="lead rise d2">Finance, documents, contracts and daily reports, handled by a team of AI employees in your chat. <b>AI prepares the work. You approve it.</b> Nothing happens without you.</p>
+        <div class="hero-cta rise d3">
+          <a class="btn btn-green" href="#cta">Join the pilot <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-quiet" href="#how">See how it works</a>
+        </div>
+        <p class="hero-note rise d4">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6z"/></svg>
+          Built on a platform running a real back office in production since May 2026
+        </p>
       </div>
-      <div class="feed">
-        <div class="entry">
-          <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5m5 14V9m5 10v-6m5 6V7"/></svg></span>
-          <div>
-            <div class="who">AI Accountant</div>
-            <p>Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, one needs your decision.</p>
-          </div>
+
+      <div class="hero-win-wrap rise d3">
+        <div class="stamp-float" aria-hidden="true">
+          <img src="assets/stamp-approved.svg" width="92" height="92" alt="Human approved stamp">
         </div>
-        <div class="entry">
-          <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M7 3h7l5 5v13H7z"/></svg></span>
-          <div>
-            <div class="who">AI Document Assistant</div>
-            <p>Draft service agreement for the new client is ready, based on your standard template. Review before sending?</p>
-            <div class="chips"><span class="chip ok">Approve</span><span class="chip">Edit</span><span class="chip">Ask why</span></div>
+
+        <div class="win" aria-label="Product preview">
+          <div class="win-bar">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="t">AI Office · morning briefing <span class="verified-tag">SECURE</span></span>
+            <time>08:00</time>
           </div>
-        </div>
-        <div class="entry you">
-          <span class="ava you"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span>
-          <div>
-            <div class="who">You</div>
-            <p>Approve the agreement. <span class="tag-hold">Hold the invoice,</span> I'll call them first.</p>
-          </div>
-        </div>
-        <div class="entry">
-          <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
-          <div>
-            <div class="who">AI Coordinator</div>
-            <p>Done. Agreement sent. Invoice parked, reminder set for 10:00 tomorrow.</p>
+          <div class="feed">
+            <div class="entry">
+              <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5m5 14V9m5 10v-6m5 6V7"/></svg></span>
+              <div>
+                <div class="who">AI Accountant <span class="role-badge">· BANK &amp; TAX</span></div>
+                <p>Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, one needs your decision.</p>
+              </div>
+            </div>
+            <div class="entry">
+              <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M7 3h7l5 5v13H7z"/></svg></span>
+              <div>
+                <div class="who">AI Document Assistant <span class="role-badge">· CONTRACTS</span></div>
+                <p>Draft service agreement for the new client is ready, based on your standard template. Review before sending?</p>
+                <div class="chips">
+                  <button class="chip ok" id="btn-approve" type="button">Approve</button>
+                  <button class="chip" id="btn-edit" type="button">Edit</button>
+                  <button class="chip" id="btn-why" type="button">Ask why</button>
+                </div>
+                <div class="chip-status-msg" id="chip-feedback">✓ Confirmed. Agreement dispatched. Recorded in ledger #849.</div>
+              </div>
+            </div>
+            <div class="entry you">
+              <span class="ava you"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></span>
+              <div>
+                <div class="who">You</div>
+                <p>Approve the agreement. <span class="tag-hold">Hold the invoice,</span> I'll call them first.</p>
+              </div>
+            </div>
+            <div class="entry">
+              <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+              <div>
+                <div class="who">AI Coordinator <span class="role-badge">· SCHEDULE</span></div>
+                <p>Done. Agreement sent. Invoice parked, reminder set for 10:00 tomorrow.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -236,57 +590,129 @@
   </div>
 </header>
 
-<section id="team" style="padding-top:clamp(24px,4vh,48px)">
+<!-- ================================================================
+     SECTION 1: AI EMPLOYEES (#team)
+     ================================================================ -->
+<section id="team">
   <div class="wrap">
-    <div class="sec-head">
-      <h2>A back-office team that never sleeps</h2>
-      <p class="sub">Hire them like real employees: give them your templates, rules and contacts. They work in your chat and web cabinet, in your language.</p>
+    <div class="sec-top-line reveal">
+      <span>SECTION 01 // ROSTER &amp; CLEARANCE</span>
+      <span>FOUR SPECIALIZED ROLES</span>
     </div>
-    <div class="ledger">
-      <div class="row">
-        <span class="n">01</span>
-        <h3>Accountant assistant</h3>
-        <p>Reads bank statements, matches payments to invoices, prepares invoices and acts, flags anomalies before they become problems.</p>
-        <span class="out">Daily ledger</span>
+
+    <div class="team-split">
+      <!-- Left Sticky Specification Column -->
+      <div class="team-manifest reveal">
+        <div class="card-header">
+          <h4>Back-Office Specification</h4>
+          <span class="ledger-tag">STRICT ISOLATION</span>
+        </div>
+        <h2>A back-office team that never sleeps</h2>
+        <p class="sub">Hire them like real employees: give them your templates, rules and contacts. They work in your chat and web cabinet, in your language.</p>
+        
+        <ul class="manifest-specs">
+          <li><span class="k">Clearance</span> <span class="v">Human Confirmation Gate</span></li>
+          <li><span class="k">Channel</span> <span class="v">Telegram + Web Cabinet</span></li>
+          <li><span class="k">Knowledge</span> <span class="v">Your rules, contacts &amp; files</span></li>
+          <li><span class="k">Languages</span> <span class="v">English, Georgian, Russian</span></li>
+        </ul>
+
+        <div class="doc-preview-box">
+          <img src="assets/isometric-doc.svg" alt="Ledger document preview">
+        </div>
       </div>
-      <div class="row">
-        <span class="n">02</span>
-        <h3>Document assistant</h3>
-        <p>Drafts contracts from your templates, fills company details from registries, compares versions and highlights what changed.</p>
-        <span class="out">Ready drafts</span>
-      </div>
-      <div class="row">
-        <span class="n">03</span>
-        <h3>Coordinator</h3>
-        <p>Morning briefing at 08:00, task tracking across the team, reminders that actually fire when they should.</p>
-        <span class="out">One briefing</span>
-      </div>
-      <div class="row">
-        <span class="n">04</span>
-        <h3>Inbox assistant</h3>
-        <p>Sorts incoming mail, extracts what matters, routes documents to the right AI employee and keeps the noise away from you.</p>
-        <span class="out">Clean inbox</span>
+
+      <!-- Right Ledger Table Column -->
+      <div class="ledger reveal">
+        <div class="row">
+          <span class="n">REF. 01</span>
+          <div>
+            <h3>Accountant assistant</h3>
+            <span class="ledger-tag" style="margin-top:6px">BANK &amp; TAX</span>
+          </div>
+          <p>Reads bank statements, matches payments to invoices, prepares invoices and acts, flags anomalies before they become problems.</p>
+          <span class="out">Daily ledger</span>
+        </div>
+
+        <div class="row">
+          <span class="n">REF. 02</span>
+          <div>
+            <h3>Document assistant</h3>
+            <span class="ledger-tag" style="margin-top:6px">CONTRACT ENGINE</span>
+          </div>
+          <p>Drafts contracts from your templates, fills company details from registries, compares versions and highlights what changed.</p>
+          <span class="out">Ready drafts</span>
+        </div>
+
+        <div class="row">
+          <span class="n">REF. 03</span>
+          <div>
+            <h3>Coordinator</h3>
+            <span class="ledger-tag" style="margin-top:6px">TASK TRACKER</span>
+          </div>
+          <p>Morning briefing at 08:00, task tracking across the team, reminders that actually fire when they should.</p>
+          <span class="out">One briefing</span>
+        </div>
+
+        <div class="row">
+          <span class="n">REF. 04</span>
+          <div>
+            <h3>Inbox assistant</h3>
+            <span class="ledger-tag" style="margin-top:6px">CORRESPONDENCE</span>
+          </div>
+          <p>Sorts incoming mail, extracts what matters, routes documents to the right AI employee and keeps the noise away from you.</p>
+          <span class="out">Clean inbox</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="how" style="padding-top:0">
+<!-- ================================================================
+     SECTION 2: HOW IT WORKS (#how)
+     ================================================================ -->
+<section id="how">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-top-line reveal">
+      <span>SECTION 02 // WORKFLOW SEQUENCE</span>
+      <span>DEPLOYMENT CYCLE</span>
+    </div>
+
+    <div class="sec-head reveal">
       <h2>Three steps, no consultants</h2>
       <p class="sub">No months of setup. You describe how your business works, the AI team takes over the routine.</p>
     </div>
-    <div class="steps">
-      <div class="step">
+
+    <div class="workflow-grid">
+      <div class="workflow-card reveal">
+        <div class="step-top">
+          <span class="step-num">STEP 01 // SETUP</span>
+          <div class="step-icon">
+            <img src="assets/step1-workspace.svg" width="44" height="44" alt="Register workspace">
+          </div>
+        </div>
         <h3>Register your company</h3>
         <p>Create a workspace and connect your channels: Telegram for daily work, web cabinet for control. Data is isolated per company, by design.</p>
       </div>
-      <div class="step">
+
+      <div class="workflow-card reveal">
+        <div class="step-top">
+          <span class="step-num">STEP 02 // ONBOARD</span>
+          <div class="step-icon">
+            <img src="assets/step2-templates.svg" width="44" height="44" alt="Hire AI employees">
+          </div>
+        </div>
         <h3>Hire AI employees</h3>
         <p>Pick roles from the catalog and onboard them like real hires: share templates, rules and contacts once.</p>
       </div>
-      <div class="step">
+
+      <div class="workflow-card step-anchor reveal">
+        <div class="step-top">
+          <span class="step-num">STEP 03 // SAFETY</span>
+          <div class="step-icon">
+            <img src="assets/step3-approval.svg" width="44" height="44" alt="Approve don't execute">
+          </div>
+        </div>
         <h3>Approve, don't execute</h3>
         <p>They prepare drafts, reconcile statements and write summaries. Every action that matters waits for your explicit approval.</p>
       </div>
@@ -294,40 +720,94 @@
   </div>
 </section>
 
+<!-- ================================================================
+     SECTION 3: WHY US (#why) - GREEN COMPLIANCE DOSSIER
+     ================================================================ -->
 <section class="drench" id="why">
   <div class="wrap">
-    <div>
-      <h2>Born in a real back office, not in a pitch deck</h2>
-      <p class="sub">AI Office grew out of the working back office of a live transportation e-commerce business, where AI employees have been reconciling bank statements and preparing documents every day since May 2026. We productized what already works.</p>
+    <div class="sec-top-line" style="color:var(--green-dim);margin-bottom:28px">
+      <span>SECTION 03 // PROVENANCE &amp; COMPLIANCE</span>
+      <span>PRODUCTION VERIFIED</span>
     </div>
-    <div class="facts">
-      <div class="fact">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        <div><b>Human-in-the-loop by design</b><p>AI prepares, a person approves. No autonomous payments, no silent actions.</p></div>
+
+    <div class="drench-grid">
+      <!-- Left Column: Provenance & Live Track Record -->
+      <div class="reveal">
+        <h2>Born in a real back office, not in a pitch deck</h2>
+        <p class="sub">AI Office grew out of the working back office of a live transportation e-commerce business, where AI employees have been reconciling bank statements and preparing documents every day since May 2026. We productized what already works.</p>
+
+        <div class="provenance-card">
+          <div class="provenance-meta">
+            <span>VERIFIED DEPLOYMENT</span>
+            <span>·</span>
+            <span>PRODUCTION SINCE MAY 2026</span>
+          </div>
+          <p>Real bank statements reconciled, real customs declarations matched, real contract drafts reviewed daily before human signature.</p>
+          <div class="provenance-stamp">
+            <img src="assets/stamp-approved.svg" alt="Approved Stamp" style="filter:brightness(1.5) contrast(1.2)">
+          </div>
+        </div>
       </div>
-      <div class="fact">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        <div><b>Hard data isolation</b><p>Every company lives in its own isolated space, enforced at the database level.</p></div>
-      </div>
-      <div class="fact">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        <div><b>Budgets with an auto-stop</b><p>Each AI employee has a monthly budget that cannot be silently exceeded.</p></div>
-      </div>
-      <div class="fact">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-        <div><b>Local rails on the roadmap</b><p>Georgian banking and e-invoicing: TBC, Bank of Georgia, RS.ge, as pilots roll out.</p></div>
+
+      <!-- Right Column: 2x2 Bento Facts Grid -->
+      <div class="compliance-grid reveal">
+        <div class="fact-tile">
+          <div class="fact-tile-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <b>Human-in-the-loop by design</b>
+          </div>
+          <p>AI prepares, a person approves. No autonomous payments, no silent actions.</p>
+        </div>
+
+        <div class="fact-tile">
+          <div class="fact-tile-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <b>Hard data isolation</b>
+          </div>
+          <p>Every company lives in its own isolated space, enforced at the database level.</p>
+        </div>
+
+        <div class="fact-tile">
+          <div class="fact-tile-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <b>Budgets with an auto-stop</b>
+          </div>
+          <p>Each AI employee has a monthly budget that cannot be silently exceeded.</p>
+        </div>
+
+        <div class="fact-tile">
+          <div class="fact-tile-head">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9db8a9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <b>Local rails on the roadmap</b>
+          </div>
+          <p>Georgian banking and e-invoicing: TBC, Bank of Georgia, RS.ge, as pilots roll out.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ================================================================
+     SECTION 4: PRICING (#pricing)
+     ================================================================ -->
 <section id="pricing">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-top-line reveal">
+      <span>SECTION 04 // PILOT PRICING SCHEDULE</span>
+      <span>EARLY ACCESS TERMS</span>
+    </div>
+
+    <div class="sec-head reveal">
       <h2>A fraction of a salary</h2>
       <p class="sub">A junior back-office hire costs hundreds per month. An AI employee costs a fraction and scales with you. Early-access terms for pilot companies:</p>
     </div>
-    <div class="plans">
+
+    <div class="pricing-benchmark-bar reveal">
+      <div>Benchmark: Junior back-office hire in Georgia typically costs <strong>$600–$900 / month</strong></div>
+      <div class="tag-ratio">PILOT SAVINGS ~ 85%</div>
+    </div>
+
+    <div class="plans reveal">
       <div class="plan">
         <div class="name">Starter</div>
         <div class="amt">$39 <span>/ month</span></div>
@@ -338,6 +818,7 @@
         </ul>
         <a class="btn btn-quiet" href="#cta">Request access</a>
       </div>
+
       <div class="plan hot">
         <div class="name">Team <span class="early">Early access</span></div>
         <div class="amt">$99 <span>/ month</span></div>
@@ -348,6 +829,7 @@
         </ul>
         <a class="btn btn-green" href="#cta">Request access</a>
       </div>
+
       <div class="plan">
         <div class="name">Business</div>
         <div class="amt">$249 <span>/ month, from</span></div>
@@ -362,31 +844,98 @@
   </div>
 </section>
 
-<section class="cta" id="cta" style="padding-top:0">
+<!-- ================================================================
+     SECTION 5: CTA (#cta) - PILOT INVITATION LETTERHEAD
+     ================================================================ -->
+<section class="cta" id="cta">
   <div class="wrap">
-    <div class="cta-in">
-      <div>
-        <h2>Be among the first pilot companies</h2>
-        <p class="sub">We are onboarding a small number of pilot companies in Georgia. Tell us about your business and get an AI back-office team tailored to it, at early-access terms.</p>
+    <div class="cta-card reveal">
+      <div class="cta-top-folio">
+        <span>OFFICIAL PILOT ADMISSION NOTICE // BATCH 2026-GEO</span>
+        <span>LIMITED QUOTA</span>
       </div>
-      <div class="cta-side">
-        <a class="btn btn-green" href="mailto:hello@ai-office.ge?subject=AI%20Office%20pilot%20request">Request early access <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <span class="cta-mail">or write to <a href="mailto:hello@ai-office.ge">hello@ai-office.ge</a></span>
+
+      <div class="cta-in">
+        <div>
+          <h2>Be among the first pilot companies</h2>
+          <p class="sub">We are onboarding a small number of pilot companies in Georgia. Tell us about your business and get an AI back-office team tailored to it, at early-access terms.</p>
+        </div>
+        <div class="cta-side">
+          <a class="btn btn-green" href="mailto:hello@ai-office.ge?subject=AI%20Office%20pilot%20request">Request early access <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <span class="cta-mail">or write to <a href="mailto:hello@ai-office.ge">hello@ai-office.ge</a></span>
+        </div>
+      </div>
+
+      <div class="cta-stamp-watermark" aria-hidden="true">
+        <img src="assets/stamp-pilot.svg" width="180" height="75" alt="Pilot stamp watermark">
       </div>
     </div>
   </div>
 </section>
 
+<!-- ================================================================
+     FOOTER
+     ================================================================ -->
 <footer>
-  <div class="wrap foot">
-    <a class="logo" href="#">
-      <svg width="22" height="22" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#2e5c48"/><path d="M18 40 L30 20 L38 34 M34 40 L46 40" stroke="#f4f2ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-      AI Office
-    </a>
-    <div style="max-width:420px">AI employees for small business back office. We also help companies adopt AI: consulting and training on request.</div>
-    <div>Individual Entrepreneur · Tbilisi, Georgia<br><a href="mailto:hello@ai-office.ge" style="color:#1f4234;font-weight:600">hello@ai-office.ge</a></div>
+  <div class="wrap">
+    <div class="foot-double-rule"></div>
+    <div class="foot">
+      <div>
+        <a class="logo" href="#">
+          <svg width="22" height="22" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#2e5c48"/><path d="M18 40 L30 20 L38 34 M34 40 L46 40" stroke="#f4f2ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          AI Office
+        </a>
+        <div style="font-size:12px;color:var(--ink3);margin-top:8px">PRECISION BACK-OFFICE AUTOMATION</div>
+      </div>
+      <div class="foot-col-text">AI employees for small business back office. We also help companies adopt AI: consulting and training on request.</div>
+      <div class="foot-legal">Individual Entrepreneur · Tbilisi, Georgia<br><a href="mailto:hello@ai-office.ge">hello@ai-office.ge</a></div>
+    </div>
   </div>
 </footer>
+
+<script>
+  // Subtle Scroll-Reveal
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+  }
+
+  // Interactive Product Preview simulation
+  const btnApprove = document.getElementById('btn-approve');
+  const btnEdit = document.getElementById('btn-edit');
+  const btnWhy = document.getElementById('btn-why');
+  const feedback = document.getElementById('chip-feedback');
+
+  if (btnApprove && feedback) {
+    btnApprove.addEventListener('click', () => {
+      feedback.style.display = 'block';
+      feedback.textContent = '✓ Approved by you. Service agreement dispatched to client. Ledger updated.';
+      btnApprove.style.background = 'var(--green-deep)';
+    });
+  }
+  if (btnEdit && feedback) {
+    btnEdit.addEventListener('click', () => {
+      feedback.style.display = 'block';
+      feedback.textContent = '✎ Opening contract editor in web cabinet for custom clause adjustments.';
+    });
+  }
+  if (btnWhy && feedback) {
+    btnWhy.addEventListener('click', () => {
+      feedback.style.display = 'block';
+      feedback.textContent = 'ℹ Rule check: Matched against Company Template v2.4 (Clause 3: Standard 14-day terms).';
+    });
+  }
+</script>
 
 </body>
 </html>
