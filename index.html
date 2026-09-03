@@ -493,6 +493,18 @@
     transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
   }
   .reveal.active{opacity:1;transform:none}
+  /* ---------- chat scenario player ---------- */
+  body.chat-anim .feed{height:552px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;transition:opacity .35s ease}
+  @media(max-width:600px){body.chat-anim .feed{height:596px}}
+  .feed.fade{opacity:0}
+  .entry.in{animation:msgIn .5s cubic-bezier(.16,1,.3,1) both}
+  @keyframes msgIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .typing-dots{display:inline-flex;gap:5px;padding:7px 0 3px}
+  .typing-dots i{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:tblink 1s ease-in-out infinite}
+  .typing-dots i:nth-child(2){animation-delay:.15s}
+  .typing-dots i:nth-child(3){animation-delay:.3s}
+  @keyframes tblink{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .chip.pressed{background:var(--green-deep) !important;border-color:var(--green-deep) !important;color:#fff !important;transform:scale(.97)}
 </style>
 </head>
 <body>
@@ -545,10 +557,10 @@
         <div class="win" aria-label="Product preview">
           <div class="win-bar">
             <span class="dots"><i></i><i></i><i></i></span>
-            <span class="t">AI Office · morning briefing <span class="verified-tag">SECURE</span></span>
-            <time>08:00</time>
+            <span class="t">AI Office · <span id="feed-mode">morning briefing</span> <span class="verified-tag">SECURE</span></span>
+            <time id="feed-time">08:00</time>
           </div>
-          <div class="feed">
+          <div class="feed" id="feed">
             <div class="entry">
               <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5m5 14V9m5 10v-6m5 6V7"/></svg></span>
               <div>
@@ -935,6 +947,117 @@
       feedback.textContent = 'ℹ Rule check: Matched against Company Template v2.4 (Clause 3: Standard 14-day terms).';
     });
   }
+</script>
+
+<script>
+  // Chat scenario player: loops three conversations in the hero mockup
+  (() => {
+    const feed = document.getElementById('feed');
+    const modeEl = document.getElementById('feed-mode');
+    const timeEl = document.getElementById('feed-time');
+    if (!feed || !modeEl || !timeEl) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const AVA = {
+      acc:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5m5 14V9m5 10v-6m5 6V7"/></svg>',
+      doc:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M7 3h7l5 5v13H7z"/></svg>',
+      coord:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+      inbox:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>',
+      you:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>'
+    };
+    const WHO = {
+      acc:  ['AI Accountant', 'BANK &amp; TAX'],
+      doc:  ['AI Document Assistant', 'CONTRACTS'],
+      coord:['AI Coordinator', 'SCHEDULE'],
+      inbox:['AI Inbox Assistant', 'MAIL'],
+      you:  ['You', '']
+    };
+
+    const SCENARIOS = [
+      { mode: 'morning briefing', time: '08:00', steps: [
+        { w:'acc',  t:'Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, one needs your decision.' },
+        { w:'doc',  t:'Draft service agreement for the new client is ready, based on your standard template. Review before sending?', chips:['Approve','Edit','Ask why'], press:0 },
+        { w:'you',  t:'Approve the agreement. <span class="tag-hold">Hold the invoice,</span> I\'ll call them first.' },
+        { w:'coord',t:'Done. Agreement sent. Invoice parked, reminder set for 10:00 tomorrow.' }
+      ]},
+      { mode: 'receivables check', time: '11:40', steps: [
+        { w:'acc',  t:'Invoice #214 to Delta LLC is <b>9 days overdue, 1 850 GEL.</b> Draft a polite reminder?', chips:['Draft it','Skip'], press:0 },
+        { w:'you',  t:'Draft it, friendly tone. Copy me.' },
+        { w:'doc',  t:'Reminder drafted, reconciliation act attached. Queued for your approval.' },
+        { w:'coord',t:'Noted. If no reply in 3 days, I\'ll bring it back to you.' }
+      ]},
+      { mode: 'inbox review', time: '16:05', steps: [
+        { w:'inbox',t:'12 emails since morning. <b>2 need you:</b> a bank request and a client complaint. The rest are filed.' },
+        { w:'you',  t:'Summarize the complaint.' },
+        { w:'inbox',t:'Delivery delay on order #88, client asks to refund shipping. Reply drafted: apologetic, offers free delivery on the next order.', chips:['Approve','Edit'], press:0 },
+        { w:'coord',t:'Weekly cash report lands in your inbox at 18:00.' }
+      ]}
+    ];
+
+    const raw = ms => new Promise(r => setTimeout(r, ms));
+    async function sleep(ms){
+      const end = Date.now() + ms;
+      while (Date.now() < end) {
+        if (document.hidden) { await raw(400); continue; }
+        await raw(Math.min(120, Math.max(20, end - Date.now())));
+      }
+    }
+    function make(html){ const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstChild; }
+
+    function entryHTML(s){
+      const [name, badge] = WHO[s.w];
+      const isYou = s.w === 'you';
+      const chips = s.chips ? '<div class="chips">' + s.chips.map((c,i) =>
+        '<button class="chip' + (i === 0 ? ' ok' : '') + '" type="button">' + c + '</button>').join('') + '</div>' : '';
+      return '<div class="entry in' + (isYou ? ' you' : '') + '">' +
+        '<span class="ava' + (isYou ? ' you' : '') + '">' + AVA[s.w] + '</span>' +
+        '<div><div class="who">' + name + (badge ? ' <span class="role-badge">· ' + badge + '</span>' : '') + '</div>' +
+        '<p>' + s.t + '</p>' + chips + '</div></div>';
+    }
+    function typingHTML(s){
+      const [name, badge] = WHO[s.w];
+      return '<div class="entry in"><span class="ava">' + AVA[s.w] + '</span>' +
+        '<div><div class="who">' + name + (badge ? ' <span class="role-badge">· ' + badge + '</span>' : '') + '</div>' +
+        '<div class="typing-dots"><i></i><i></i><i></i></div></div></div>';
+    }
+
+    async function playScenario(sc){
+      modeEl.textContent = sc.mode;
+      timeEl.textContent = sc.time;
+      feed.innerHTML = '';
+      for (const step of sc.steps) {
+        if (step.w === 'you') {
+          await sleep(650);
+          feed.appendChild(make(entryHTML(step)));
+        } else {
+          const tip = make(typingHTML(step));
+          feed.appendChild(tip);
+          await sleep(850 + Math.random() * 350);
+          tip.replaceWith(make(entryHTML(step)));
+        }
+        if (step.chips && step.press !== undefined) {
+          await sleep(1200);
+          const btns = feed.querySelectorAll('.entry:last-child .chip');
+          if (btns[step.press]) btns[step.press].classList.add('pressed');
+        }
+        await sleep(1150);
+      }
+      await sleep(3000);
+      feed.classList.add('fade');
+      await sleep(380);
+      feed.classList.remove('fade');
+    }
+
+    (async () => {
+      document.body.classList.add('chat-anim');
+      await sleep(7000);
+      let i = 1; // static markup already shows scenario 1
+      while (true) {
+        await playScenario(SCENARIOS[i % SCENARIOS.length]);
+        i++;
+      }
+    })();
+  })();
 </script>
 
 </body>
