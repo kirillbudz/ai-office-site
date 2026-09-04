@@ -16,71 +16,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#2e5c48">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e5c48'/%3E%3Cpath d='M18 40 L30 20 L38 34 M34 40 L46 40' stroke='%23f4f2ea' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/hanken-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/base.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AI Office","applicationCategory":"BusinessApplication","operatingSystem":"Web, Telegram","url":"https://ai-office.ge/","description":"AI employees for small business back office. AI prepares the work, you approve it.","offers":{"@type":"Offer","price":"39","priceCurrency":"USD","description":"Early-access pilot pricing, from $39 per month"}}
 </script>
 <style>
-  :root{
-    --paper:#f6f4ee;   --paper:oklch(97.2% 0.007 95);
-    --paper2:#eeebe2;  --paper2:oklch(94.6% 0.011 95);
-    --white:#fdfdfb;
-    --ink:#22302a;     --ink:oklch(26% 0.021 160);
-    --ink2:#5b6a62;    --ink2:oklch(48% 0.018 160);
-    --ink3:#647369;
-    --line:#d9d5c9;    --line:oklch(87% 0.012 110);
-    --line2:#b6b09f;
-    --green:#2e5c48;   --green:oklch(42% 0.075 160);
-    --green-deep:#1f4234; --green-deep:oklch(33% 0.062 160);
-    --green-ink:#dbe8df;  --green-ink:oklch(91% 0.02 160);
-    --green-dim:#a3bdb0;
-    --tint:#e3e9e2;    --tint:oklch(91.5% 0.017 160);
-    --amber-ink:#7a5310; --amber-soft:#faebd0;
-    --d:"Bricolage Grotesque",Georgia,serif;
-    --b:"Hanken Grotesk",-apple-system,"Segoe UI",sans-serif;
-    --ease:cubic-bezier(.16,1,.3,1);
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--paper);background-image:radial-gradient(var(--line) .65px,transparent .65px);background-size:28px 28px;color:var(--ink);font:16.5px/1.6 var(--b);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum";overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-  .wrap{max-width:1140px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
-  ::selection{background:var(--green);color:var(--green-ink)}
-  :focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px}
-  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-  .kicker{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
-
-  /* ---------- nav ---------- */
-  nav{position:sticky;top:0;z-index:50;background:color-mix(in oklab,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
-  .logo{display:flex;align-items:center;gap:11px;font-family:var(--d);font-weight:800;font-size:19px;letter-spacing:-.2px}
-  .nav-links{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--ink2)}
-  .nav-links a{position:relative;padding:6px 0;transition:color .18s}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .22s var(--ease)}
-  .nav-links a:hover::after{transform:scaleX(1)}
-  .nav-right{display:flex;align-items:center;gap:12px}
-  .burger{display:none;width:44px;height:44px;border-radius:10px;border:1px solid var(--line2);background:var(--white);place-items:center}
-  .burger svg{display:block}
-  .mobile-menu{display:none;border-top:1px solid var(--line);background:var(--paper);padding:10px 0 18px}
-  .mobile-menu a{display:block;padding:13px clamp(20px,4vw,40px);font-size:17px;font-weight:600;color:var(--ink)}
-  .mobile-menu a + a{border-top:1px solid color-mix(in oklab,var(--line) 60%,transparent)}
-  body.menu-open .mobile-menu{display:block}
-  @media(max-width:820px){.nav-links{display:none}.burger{display:grid}.nav-right .btn{display:none}}
-
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 24px;border-radius:10px;font-weight:600;font-size:15.5px;line-height:1;min-height:44px;transition:transform .18s var(--ease),background .18s,border-color .18s,box-shadow .18s}
-  .btn svg{transition:transform .18s var(--ease)}
-  .btn-green{background:var(--green);color:var(--green-ink);box-shadow:0 1px 2px rgba(31,66,52,.12)}
-  .btn-green:hover{background:var(--green-deep);transform:translateY(-1px);box-shadow:0 6px 14px -3px rgba(31,66,52,.22)}
-  .btn-green:hover svg{transform:translateX(3px)}
-  .btn-quiet{border:1px solid var(--line2);color:var(--ink);background:var(--white)}
-  .btn-quiet:hover{border-color:var(--ink);transform:translateY(-1px)}
-  nav .btn{padding:11px 20px;min-height:40px}
-
   /* ---------- hero ---------- */
   .hero{padding:clamp(40px,6vh,72px) 0 clamp(54px,8vh,92px)}
   .folio{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:16px;margin-bottom:clamp(30px,4vh,48px);border-bottom:1px solid var(--line);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
@@ -98,7 +40,7 @@
   .lead b{color:var(--ink);font-weight:600}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
   .hero-note{margin-top:24px;font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:10px}
-  .hero-note svg{flex:none}
+  .hero-note svg{flex:none;color:var(--green)}
 
   @media (prefers-reduced-motion:no-preference){
     .rise{opacity:0;transform:translateY(18px);animation:rise .9s var(--ease) forwards}
@@ -112,14 +54,18 @@
   .win-wrap{position:relative}
   .stamp{position:absolute;top:-24px;right:-14px;z-index:5;width:92px;transform:rotate(7deg);pointer-events:none;filter:drop-shadow(0 4px 10px rgba(46,92,72,.15))}
   .win{background:var(--white);border:1px solid var(--line2);border-radius:16px;box-shadow:0 2px 4px rgba(30,40,35,.04),0 24px 56px -16px rgba(30,40,35,.18);overflow:hidden}
-  .win-bar{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--green-deep);color:var(--green-ink)}
+  .win-bar{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 18px;background:var(--green-deep);color:var(--green-ink)}
   .win-bar .dots{display:flex;gap:6.5px}
   .win-bar .dots i{width:9px;height:9px;border-radius:50%;background:color-mix(in oklab,var(--green-ink) 35%,transparent)}
-  .win-bar .t{font-size:13px;font-weight:600;letter-spacing:.2px}
+  .win-bar .t{font-size:13px;font-weight:600;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  @media(max-width:600px){.win-bar .brand{display:none}}
   .win-bar time{margin-left:auto;font-size:12.5px;color:var(--green-dim);font-variant-numeric:tabular-nums}
+  .pause{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;color:var(--green-ink);border:1px solid color-mix(in oklab,var(--green-ink) 25%,transparent)}
+  .pause:hover{background:color-mix(in oklab,var(--green-ink) 14%,transparent)}
+  .pause:focus-visible{outline-color:var(--green-ink)}
   .feed{padding:6px 0;background-image:linear-gradient(to bottom,transparent 96%,color-mix(in oklab,var(--line) 40%,transparent) 96%);background-size:100% 26px}
   body.chat-anim .feed{height:552px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-  @media(max-width:600px){body.chat-anim .feed{height:596px}}
+  @media(max-width:600px){body.chat-anim .feed{height:470px}.stamp{display:none}}
   .entry{display:grid;grid-template-columns:36px 1fr;gap:13px;padding:16px 20px}
   .entry + .entry,.divider + .entry{border-top:1px solid color-mix(in oklab,var(--line) 70%,transparent)}
   .entry.in,.divider.in{animation:msgIn .5s var(--ease) both}
@@ -174,26 +120,39 @@
   .step p{color:var(--ink2);font-size:15.5px;line-height:1.64}
   @media(max-width:760px){.steps{grid-template-columns:1fr;gap:28px}}
 
-  /* why (drench) */
+  /* why + who (drench) */
   .drench{background:var(--green-deep);color:var(--green-ink);padding:clamp(74px,11vh,120px) 0}
-  .drench-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(36px,5vw,76px);align-items:start}
+  .drench-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(36px,5vw,76px);align-items:start}
   @media(max-width:920px){.drench-grid{grid-template-columns:1fr;gap:36px}}
   .drench h2{color:#fff}
   .drench .sub{color:var(--green-dim)}
-  .drench .since{margin-top:26px;font-size:13.5px;color:var(--green-dim);display:flex;align-items:center;gap:10px}
   .facts{list-style:none;border-top:1px solid color-mix(in oklab,var(--green-ink) 22%,transparent)}
-  .facts li{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:22px 0;border-bottom:1px solid color-mix(in oklab,var(--green-ink) 22%,transparent)}
-  .facts svg{margin-top:3px}
+  .facts li{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:20px 0;border-bottom:1px solid color-mix(in oklab,var(--green-ink) 22%,transparent)}
+  .facts svg{margin-top:3px;color:var(--green-dim)}
   .facts b{display:block;font-weight:700;font-size:16.5px;color:#fff;margin-bottom:5px}
   .facts p{font-size:15px;line-height:1.6;color:var(--green-dim)}
+  .who-block{margin-top:40px;padding-top:28px;border-top:1px solid color-mix(in oklab,var(--green-ink) 22%,transparent)}
+  .who-block h3{font-family:var(--d);font-weight:800;font-size:22px;color:#fff;letter-spacing:-.015em;margin-bottom:12px}
+  .who-block p{color:var(--green-dim);font-size:15.5px;line-height:1.66;max-width:60ch}
+  .who-block p + p{margin-top:12px}
+  .who-block b{color:#fff;font-weight:600}
 
-  /* next */
-  .next{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);margin-top:48px}
-  .next div{padding:24px 26px;background:var(--white);border:1px solid var(--line);border-radius:14px}
-  .next .t{font-family:var(--d);font-weight:800;font-size:13px;color:var(--green);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
-  .next h3{font-family:var(--d);font-weight:800;font-size:19px;margin-bottom:8px;letter-spacing:-.01em}
-  .next p{color:var(--ink2);font-size:15px;line-height:1.6}
-  @media(max-width:760px){.next{grid-template-columns:1fr}}
+  /* timeline */
+  .timeline{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3.5vw,48px);margin-top:52px;counter-reset:tl}
+  .timeline li{position:relative;padding-top:30px}
+  .timeline li::before{content:"";position:absolute;left:0;right:calc(-1 * clamp(24px,3.5vw,48px));top:8px;height:2px;background:var(--line2)}
+  .timeline li:last-child::before{right:0}
+  .timeline li::after{content:"";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--paper)}
+  .timeline .t{font-family:var(--d);font-weight:800;font-size:13px;color:var(--green);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+  .timeline h3{font-family:var(--d);font-weight:800;font-size:20px;margin-bottom:8px;letter-spacing:-.01em}
+  .timeline p{color:var(--ink2);font-size:15.5px;line-height:1.62;max-width:34em}
+  @media(max-width:760px){
+    .timeline{grid-template-columns:1fr;gap:28px;padding-left:30px}
+    .timeline li{padding-top:0}
+    .timeline li::before{left:-22px;right:auto;top:6px;bottom:-30px;width:2px;height:auto}
+    .timeline li:last-child::before{display:none}
+    .timeline li::after{left:-30px;top:2px}
+  }
 
   /* faq */
   .faq{margin-top:44px;border-top:1px solid var(--ink);max-width:820px}
@@ -204,16 +163,8 @@
   .faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
   .faq details p{color:var(--ink2);font-size:15.5px;line-height:1.65;padding:0 0 22px;max-width:62ch}
 
-  /* about */
-  .about{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .about-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,72px);align-items:start}
-  @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
-  .about p{color:var(--ink2);font-size:16.5px;line-height:1.68;max-width:60ch}
-  .about p + p{margin-top:14px}
-  .about p b{color:var(--ink);font-weight:600}
-
   /* pricing */
-  .bench{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:30px 0 40px;font-size:14.5px;color:var(--ink2)}
+  .bench{margin:30px 0 40px;font-size:14.5px;color:var(--ink2)}
   .bench strong{color:var(--ink);font-weight:700}
   .plans{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line2);border-radius:16px;overflow:hidden;background:var(--white);box-shadow:0 4px 16px -4px rgba(30,40,35,.06)}
   .plan{padding:clamp(28px,3vw,40px);display:flex;flex-direction:column}
@@ -225,40 +176,47 @@
   .amt span{font-family:var(--b);font-size:14.5px;font-weight:500;color:var(--ink2);letter-spacing:0}
   .plan ul{list-style:none;margin:24px 0 34px;flex:1}
   .plan li{display:grid;grid-template-columns:20px 1fr;gap:11px;padding:8px 0;font-size:15px;color:var(--ink2)}
-  .plan li svg{margin-top:4px}
+  .plan li svg{margin-top:4px;color:var(--green)}
   .plan .btn{width:100%}
   .plans-note{margin-top:16px;font-size:14px;color:var(--ink2)}
   @media(max-width:880px){.plans{grid-template-columns:1fr}.plan + .plan{border-left:0;border-top:1px solid var(--line)}}
 
-  /* cta */
+  /* cta + form */
   .cta{padding-bottom:clamp(84px,12vh,130px)}
-  .cta-card{background:var(--white);border:2px solid var(--ink);border-radius:18px;padding:clamp(36px,5vw,64px)}
-  .cta-in{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+  .cta-card{background:var(--white);border:2px solid var(--ink);border-radius:18px;padding:clamp(32px,5vw,60px)}
+  .cta-in{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
   @media(max-width:880px){.cta-in{grid-template-columns:1fr}}
-  .cta h2{font-size:clamp(32px,4.2vw,54px);letter-spacing:-.025em}
-  .cta-side{display:flex;flex-direction:column;gap:14px;align-items:stretch}
-  .copy-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:15px;color:var(--ink2)}
-  .copy-row code{font-family:var(--b);font-weight:600;color:var(--green-deep)}
-  .copy-btn{min-height:36px;padding:8px 12px;border-radius:8px;border:1px solid var(--line2);font-size:13.5px;font-weight:600;color:var(--ink);background:var(--white)}
+  .cta h2{font-size:clamp(32px,4.2vw,52px);letter-spacing:-.025em}
+  .cta-alt{margin-top:26px;font-size:15px;color:var(--ink2);display:flex;flex-direction:column;gap:12px}
+  .mail-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .mail-line a{font-weight:700;color:var(--green-deep);font-size:17px;display:inline-flex;align-items:center;min-height:44px}
+  .copy-btn{min-height:40px;padding:8px 12px;border-radius:8px;border:1px solid var(--line2);font-size:13.5px;font-weight:600;color:var(--ink);background:var(--white)}
   .copy-btn:hover{border-color:var(--ink)}
-  .cta-reply{font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:8px}
-
-  /* footer */
-  footer{border-top:1px solid var(--line);padding:40px 0 56px;font-size:14px;color:var(--ink2);background:var(--paper2)}
-  .foot{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;align-items:flex-start}
-  .foot .logo{font-size:17px}
-  .foot-col{max-width:380px;line-height:1.6}
-  .foot-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px}
-  .foot-links a{color:var(--green-deep);font-weight:600;padding:11px 0;display:inline-block}
-  .foot-legal{font-size:13.5px;line-height:1.7;color:var(--ink2);text-align:right}
-  @media(max-width:600px){.foot-legal{text-align:left}}
+  .cta-reply{display:flex;align-items:center;gap:8px}
+  .cta-reply svg{color:var(--green);flex:none}
+  .pilot-form{display:grid;gap:16px}
+  .field{display:grid;gap:6px}
+  .field label{font-size:13.5px;font-weight:600}
+  .field input,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line2);border-radius:10px;background:var(--white);font-size:15.5px;min-height:46px}
+  .field textarea{min-height:100px;resize:vertical}
+  .field input:focus-visible,.field textarea:focus-visible{outline:2px solid var(--green);outline-offset:0;border-color:var(--green)}
+  .field .err{display:none;font-size:13px;color:var(--danger)}
+  .field.invalid input,.field.invalid textarea{border-color:var(--danger)}
+  .field.invalid .err{display:block}
+  .form-status{font-size:14.5px;color:var(--ink2);min-height:1.4em}
+  .form-status.ok{color:var(--green-deep);font-weight:600}
+  .form-status.bad{color:var(--danger)}
+  .form-done{background:var(--tint);border-radius:12px;padding:24px 26px}
+  .form-done h3{font-family:var(--d);font-weight:800;font-size:22px;margin-bottom:8px;letter-spacing:-.01em}
+  .form-done p{color:var(--ink2);font-size:15.5px;line-height:1.6}
 </style>
 </head>
 <body>
 
-<nav aria-label="Main">
+<a class="skip" href="#main">Skip to content</a>
+<nav class="site" aria-label="Main">
   <div class="wrap nav-in">
-    <a class="logo" href="#top" aria-label="AI Office, home">
+    <a class="logo" href="/" aria-label="AI Office, home">
       <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2e5c48"/><path d="M18 40 L30 20 L38 34 M34 40 L46 40" stroke="#f4f2ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
       AI Office
     </a>
@@ -286,7 +244,8 @@
   </div>
 </nav>
 
-<header class="hero" id="top">
+<main id="main">
+<header class="hero">
   <div class="wrap">
     <div class="folio rise">
       <span><i class="dot"></i> Back-office automation for small business</span>
@@ -302,18 +261,21 @@
           <a class="btn btn-quiet" href="#how">See how it works</a>
         </div>
         <p class="hero-note rise d4">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l7 4v6c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l7 4v6c0 4.6-3 8.6-7 10-4-1.4-7-5.4-7-10V6z"/></svg>
           Built on a platform running a real back office in production since May 2026
         </p>
       </div>
 
       <div class="win-wrap rise d3">
-        <img class="stamp" src="assets/stamp.svg" alt="" aria-hidden="true">
-        <div class="win" role="img" aria-label="Product preview: a chat where AI employees report and ask for approval">
+        <img class="stamp" src="/assets/stamp.svg" alt="" aria-hidden="true">
+        <div class="win">
           <div class="win-bar">
             <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="t">AI Office · <span id="feed-mode">morning briefing</span></span>
+            <span class="t"><span class="brand">AI Office · </span><span id="feed-mode">morning briefing</span></span>
             <time id="feed-time">08:00</time>
+            <button class="pause" id="chat-pause" type="button" aria-label="Pause the demo" aria-pressed="false" hidden>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+            </button>
           </div>
           <div class="feed" id="feed" aria-hidden="true">
             <div class="entry">
@@ -357,30 +319,10 @@
       </ul>
     </div>
     <div class="ledger reveal">
-      <div class="row">
-        <span class="n">REF. 01</span>
-        <div><h3>Accountant assistant</h3><span class="dept">Bank &amp; tax</span></div>
-        <p>Reads bank statements, matches payments to invoices, prepares invoices and acts, flags anomalies before they become problems.</p>
-        <span class="out">Daily ledger</span>
-      </div>
-      <div class="row">
-        <span class="n">REF. 02</span>
-        <div><h3>Document assistant</h3><span class="dept">Contracts</span></div>
-        <p>Drafts contracts from your templates, fills company details from registries, compares versions and highlights what changed.</p>
-        <span class="out">Ready drafts</span>
-      </div>
-      <div class="row">
-        <span class="n">REF. 03</span>
-        <div><h3>Coordinator</h3><span class="dept">Schedule</span></div>
-        <p>Morning briefing at 08:00, task tracking across the team, reminders that actually fire when they should.</p>
-        <span class="out">One briefing</span>
-      </div>
-      <div class="row">
-        <span class="n">REF. 04</span>
-        <div><h3>Inbox assistant</h3><span class="dept">Correspondence</span></div>
-        <p>Sorts incoming mail, extracts what matters, routes documents to the right AI employee and keeps the noise away from you.</p>
-        <span class="out">Clean inbox</span>
-      </div>
+      <div class="row"><span class="n">REF. 01</span><div><h3>Accountant assistant</h3><span class="dept">Bank &amp; tax</span></div><p>Reads bank statements, matches payments to invoices, prepares invoices and acts, flags anomalies before they become problems.</p><span class="out">Daily ledger</span></div>
+      <div class="row"><span class="n">REF. 02</span><div><h3>Document assistant</h3><span class="dept">Contracts</span></div><p>Drafts contracts from your templates, fills company details from registries, compares versions and highlights what changed.</p><span class="out">Ready drafts</span></div>
+      <div class="row"><span class="n">REF. 03</span><div><h3>Coordinator</h3><span class="dept">Schedule</span></div><p>Morning briefing at 08:00, task tracking across the team, reminders that actually fire when they should.</p><span class="out">One briefing</span></div>
+      <div class="row"><span class="n">REF. 04</span><div><h3>Inbox assistant</h3><span class="dept">Correspondence</span></div><p>Sorts incoming mail, extracts what matters, routes documents to the right AI employee and keeps the noise away from you.</p><span class="out">Clean inbox</span></div>
     </div>
   </div>
 </section>
@@ -404,13 +346,18 @@
     <div class="reveal">
       <h2>Born in a real back office, not in a pitch deck</h2>
       <p class="sub">AI Office grew out of the working back office of a live transportation e-commerce business. Since May 2026 its AI employees have been reconciling bank statements, preparing invoices and drafting contracts there every day, with a person signing off on each one. We productized what already works.</p>
-      <p class="since"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a3bdb0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>In production since May 2026</p>
+      <div class="who-block">
+        <h3>Who is behind it</h3>
+        <p>A founder who runs that transportation business and got tired of the same routine everyone gets tired of: statements, invoices, contracts, reminders. <b>In May 2026 he put a team of AI employees to work on his own company</b>, and they have been running its back office since.</p>
+        <p>AI Office operates as an individual entrepreneur registered in Tbilisi, Georgia, and works with pilot clients worldwide. Alongside the product we help companies adopt AI in their own workflows: consulting and training on request.</p>
+      </div>
     </div>
     <ul class="facts reveal">
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a3bdb0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Human-in-the-loop by design</b><p>AI prepares, a person approves. No autonomous payments, no silent actions.</p></div></li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a3bdb0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Hard data isolation</b><p>Every company lives in its own isolated space, enforced at the database level.</p></div></li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a3bdb0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Budgets with an auto-stop</b><p>Each AI employee has a monthly budget that cannot be silently exceeded.</p></div></li>
-      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a3bdb0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Local rails per market</b><p>Banking and e-invoicing integrations follow each market we enter. First up: TBC, Bank of Georgia, RS.ge.</p></div></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Human-in-the-loop by design</b><p>AI prepares, a person approves. No autonomous payments, no silent actions.</p></div></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Hard data isolation</b><p>Every company lives in its own isolated space, enforced at the database level.</p></div></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Budgets with an auto-stop</b><p>Each AI employee has a monthly budget that cannot be silently exceeded.</p></div></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>Local rails per market</b><p>Banking and e-invoicing integrations follow each market we enter. First up: TBC, Bank of Georgia, RS.ge.</p></div></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><div><b>In production since May 2026</b><p>Not a prototype: the same platform runs a real company's back office today.</p></div></li>
     </ul>
   </div>
 </section>
@@ -419,39 +366,27 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <h2>What happens after you write to us</h2>
-      <p class="sub">No sales funnel, no demo theatre. Three short steps from your email to a working AI team.</p>
+      <p class="sub">No sales funnel, no demo theatre. Three short steps from your message to a working AI team.</p>
     </div>
-    <div class="next reveal">
-      <div><div class="t">Within one business day</div><h3>We reply</h3><p>You get a short answer from a person: a few questions about your business and a time for a call.</p></div>
-      <div><div class="t">30 minutes</div><h3>We talk</h3><p>You show us how your back office works today. We tell you honestly which routine we can take over first.</p></div>
-      <div><div class="t">About a week</div><h3>Your AI team goes live</h3><p>We set up the workspace, onboard the first AI employees with your templates, and stay in the chat while you get used to approving instead of doing.</p></div>
-    </div>
+    <ol class="timeline reveal">
+      <li><div class="t">Within one business day</div><h3>We reply</h3><p>You get a short answer from a person: a few questions about your business and a time for a call.</p></li>
+      <li><div class="t">30 minutes</div><h3>We talk</h3><p>You show us how your back office works today. We tell you honestly which routine we can take over first.</p></li>
+      <li><div class="t">About a week</div><h3>Your AI team goes live</h3><p>We set up the workspace, onboard the first AI employees with your templates, and stay in the chat while you get used to approving instead of doing.</p></li>
+    </ol>
   </div>
 </section>
 
 <section id="faq" style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <h2>Questions owners ask us</h2>
-    </div>
+    <div class="sec-head reveal"><h2>Questions owners ask us</h2></div>
     <div class="faq reveal">
       <details><summary>Can the AI pay someone or send a document without me?</summary><p>No. AI employees prepare drafts, reconciliations and summaries, then stop and wait. Payments, sending documents and anything else that matters happen only after you press Approve. This rule is built into the product, not into a setting you could forget to switch on.</p></details>
       <details><summary>Which AI models power it?</summary><p>Current frontier models from the leading providers, accessed through their business APIs. Under those API terms your data is not used to train their models. We pick the model per task: a stronger one for contracts, a cheaper one for routine sorting, so quality stays high and the bill stays small.</p></details>
       <details><summary>Where does my data live, and who can see it?</summary><p>Each company has its own isolated space, enforced at the database level, so one client can never see another. Documents are processed only to do the task you asked for. We do not sell or share data, and the exact hosting and data flows are written into your pilot agreement before anything is uploaded.</p></details>
-      <details><summary>What if the AI makes a mistake?</summary><p>Then you see it before it matters. Every draft comes with its reasoning, you can ask why, edit, or reject. In practice mistakes surface as a question in your chat, not as a wrong payment in your bank. The AI also learns your corrections, so the same mistake rarely comes back.</p></details>
+      <details><summary>What if the AI makes a mistake?</summary><p>Then you see it before it matters. Every draft comes with its reasoning; you can ask why, edit, or reject. In practice mistakes surface as a question in your chat, not as a wrong payment in your bank. The AI also learns your corrections, so the same mistake rarely comes back.</p></details>
       <details><summary>Does this replace my accountant?</summary><p>No, and it is not meant to. It replaces the hours your accountant or you spend matching payments, retyping details and chasing documents. The professional judgement, the signature and the responsibility stay with people.</p></details>
       <details><summary>Which languages does it speak?</summary><p>English, Georgian and Russian in chat and in documents. Your team writes in whatever language it already uses.</p></details>
       <details><summary>How fast can we start, and can we stop?</summary><p>A pilot goes live in about a week after the first call. Pricing is monthly with early-access terms fixed for the pilot period, and you can stop at the end of any month. Your data is exported to you on request.</p></details>
-    </div>
-  </div>
-</section>
-
-<section class="about" id="about">
-  <div class="wrap about-grid">
-    <div class="reveal"><h2>Who is behind it</h2></div>
-    <div class="reveal">
-      <p>AI Office is built by a founder who runs a transportation e-commerce business and got tired of the same back-office routine everyone gets tired of: statements, invoices, contracts, reminders. <b>In May 2026 he put a team of AI employees to work on his own company.</b> They have been running its back office since, with a person approving each step. This product is that setup, made available to other companies.</p>
-      <p>The company operates as an individual entrepreneur registered in Tbilisi, Georgia, and works with pilot clients worldwide. Alongside the product we help companies adopt AI in their own workflows: consulting and training on request.</p>
     </div>
   </div>
 </section>
@@ -468,9 +403,9 @@
         <div class="name">Starter</div>
         <div class="amt">$39 <span>/ month</span></div>
         <ul>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>1 AI employee</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Telegram + web cabinet</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Your templates and rules</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>1 AI employee</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Telegram + web cabinet</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Your templates and rules</li>
         </ul>
         <a class="btn btn-quiet" href="#cta">Request access</a>
       </div>
@@ -478,9 +413,9 @@
         <div class="name">Team <span class="early">Early access</span></div>
         <div class="amt">$99 <span>/ month</span></div>
         <ul>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>3 AI employees</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Morning briefings</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Shared company knowledge base</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>3 AI employees</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Morning briefings</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Shared company knowledge base</li>
         </ul>
         <a class="btn btn-green" href="#cta">Request access</a>
       </div>
@@ -488,9 +423,9 @@
         <div class="name">Business</div>
         <div class="amt">$249 <span>/ month, from</span></div>
         <ul>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Full AI back-office team</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Bank and e-invoicing integrations</li>
-          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Custom roles and workflows</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Full AI back-office team</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Bank and e-invoicing integrations</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Custom roles and workflows</li>
         </ul>
         <a class="btn btn-quiet" href="#cta">Talk to us</a>
       </div>
@@ -506,28 +441,48 @@
         <div>
           <h2>Be among the first pilot companies</h2>
           <p class="sub">We are onboarding a small number of pilot companies. Tell us about your business in a few lines and get an AI back-office team tailored to it, at early-access terms.</p>
+          <div class="cta-alt">
+            <div class="mail-line">Prefer email? <a href="mailto:hello@ai-office.ge">hello@ai-office.ge</a> <button class="copy-btn" id="copy-mail" type="button">Copy address</button></div>
+            <p class="cta-reply"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>We reply within one business day.</p>
+          </div>
         </div>
-        <div class="cta-side">
-          <a class="btn btn-green" href="mailto:hello@ai-office.ge?subject=AI%20Office%20pilot%20request&body=Hi%2C%0A%0AOur%20company%3A%20%0AWhat%20we%20do%3A%20%0AWhat%20eats%20our%20time%20in%20the%20back%20office%3A%20%0A%0AThanks">Request early access <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <div class="copy-row">or write to <code id="mail-text">hello@ai-office.ge</code> <button class="copy-btn" id="copy-mail" type="button">Copy address</button></div>
-          <p class="cta-reply"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e5c48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>We reply within one business day.</p>
-        </div>
+        <form class="pilot-form" id="pilot-form" action="https://formspree.io/f/FORMSPREE_ID" method="POST" novalidate>
+          <div class="field">
+            <label for="f-name">Your name and company</label>
+            <input id="f-name" name="name" type="text" autocomplete="organization" required>
+            <span class="err" id="e-name">Please tell us who you are.</span>
+          </div>
+          <div class="field">
+            <label for="f-email">Work email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required inputmode="email">
+            <span class="err" id="e-email">Please enter an email we can reply to.</span>
+          </div>
+          <div class="field">
+            <label for="f-msg">What eats your time in the back office?</label>
+            <textarea id="f-msg" name="message" rows="3" placeholder="For example: matching payments to invoices, chasing documents, drafting standard contracts"></textarea>
+          </div>
+          <input type="text" name="_gotcha" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="_subject" value="AI Office pilot request">
+          <button class="btn btn-green" type="submit">Request early access <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </div>
   </div>
 </section>
+</main>
 
-<footer>
+<footer class="site">
   <div class="wrap foot">
     <div class="foot-col">
-      <a class="logo" href="#top" aria-label="AI Office, home">
+      <a class="logo" href="/" aria-label="AI Office, home">
         <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2e5c48"/><path d="M18 40 L30 20 L38 34 M34 40 L46 40" stroke="#f4f2ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
         AI Office
       </a>
-      <div style="margin-top:10px">AI employees for small business back office. AI prepares the work, you approve it.</div>
+      <div>AI employees for small business back office. AI prepares the work, you approve it.</div>
       <div class="foot-links">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
         <a href="mailto:hello@ai-office.ge">hello@ai-office.ge</a>
       </div>
     </div>
@@ -538,16 +493,11 @@
 <script>
 (() => {
   // mobile menu
-  const burger = document.getElementById('burger');
-  const menu = document.getElementById('mobile-menu');
-  if (burger && menu) {
-    const close = () => { document.body.classList.remove('menu-open'); burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Open menu'); };
-    burger.addEventListener('click', () => {
-      const open = document.body.classList.toggle('menu-open');
-      burger.setAttribute('aria-expanded', String(open));
-      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    });
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  const b = document.getElementById('burger'), m = document.getElementById('mobile-menu');
+  if (b && m) {
+    const close = () => { document.body.classList.remove('menu-open'); b.setAttribute('aria-expanded','false'); b.setAttribute('aria-label','Open menu'); };
+    b.addEventListener('click', () => { const o = document.body.classList.toggle('menu-open'); b.setAttribute('aria-expanded', String(o)); b.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); });
+    m.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
     matchMedia('(min-width: 821px)').addEventListener('change', e => { if (e.matches) close(); });
   }
 
@@ -564,16 +514,73 @@
   if ('IntersectionObserver' in window && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } }), { threshold: 0.12 });
     reveals.forEach(el => io.observe(el));
-  } else {
-    reveals.forEach(el => el.classList.add('active'));
+  } else reveals.forEach(el => el.classList.add('active'));
+
+  // pilot request form: Formspree when configured, email fallback otherwise
+  const form = document.getElementById('pilot-form');
+  if (form) {
+    const status = document.getElementById('form-status');
+    const endpoint = form.getAttribute('action');
+    const live = endpoint && !endpoint.includes('FORMSPREE_ID');
+    const fields = { name: document.getElementById('f-name'), email: document.getElementById('f-email'), message: document.getElementById('f-msg') };
+    const mark = (el, bad) => el.closest('.field').classList.toggle('invalid', bad);
+    const valid = () => {
+      const n = fields.name.value.trim().length > 1;
+      const e = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(fields.email.value.trim());
+      mark(fields.name, !n); mark(fields.email, !e);
+      if (!n) fields.name.focus(); else if (!e) fields.email.focus();
+      return n && e;
+    };
+    const mailtoFallback = () => {
+      const body = 'Name / company: ' + fields.name.value.trim() + '\nEmail: ' + fields.email.value.trim() + '\n\nWhat eats our time: ' + fields.message.value.trim();
+      location.href = 'mailto:hello@ai-office.ge?subject=' + encodeURIComponent('AI Office pilot request') + '&body=' + encodeURIComponent(body);
+      status.className = 'form-status ok';
+      status.textContent = 'Your mail app should open with the request. If it does not, email us at hello@ai-office.ge.';
+    };
+    const done = () => {
+      const box = document.createElement('div');
+      box.className = 'form-done';
+      box.innerHTML = '<h3>Thank you. We have your request.</h3><p>A person will reply within one business day with a couple of questions and a time for a 30-minute call.</p>';
+      form.replaceWith(box);
+    };
+    ['input', 'change'].forEach(ev => form.addEventListener(ev, e => { if (e.target.closest('.field')) e.target.closest('.field').classList.remove('invalid'); }));
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      status.className = 'form-status'; status.textContent = '';
+      if (!valid()) { status.className = 'form-status bad'; status.textContent = 'Please check the highlighted fields.'; return; }
+      if (!live) { mailtoFallback(); return; }
+      const btn = form.querySelector('button[type=submit]');
+      btn.disabled = true; status.textContent = 'Sending…';
+      try {
+        const r = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (r.ok) { done(); return; }
+        throw new Error('bad status');
+      } catch (err) {
+        btn.disabled = false;
+        status.className = 'form-status bad';
+        status.textContent = 'Could not send right now. Opening your mail app instead…';
+        setTimeout(mailtoFallback, 900);
+      }
+    });
   }
 
-  // chat: continuous day-long stream of four scenarios
-  const feed = document.getElementById('feed');
-  const modeEl = document.getElementById('feed-mode');
-  const timeEl = document.getElementById('feed-time');
+  // chat: continuous day-long stream with pause control
+  const feed = document.getElementById('feed'), modeEl = document.getElementById('feed-mode'), timeEl = document.getElementById('feed-time'), pauseBtn = document.getElementById('chat-pause');
   if (!feed || !modeEl || !timeEl) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let paused = false;
+  const ICON_PAUSE = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
+  const ICON_PLAY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>';
+  if (pauseBtn) {
+    pauseBtn.hidden = false;
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.setAttribute('aria-pressed', String(paused));
+      pauseBtn.setAttribute('aria-label', paused ? 'Resume the demo' : 'Pause the demo');
+      pauseBtn.innerHTML = paused ? ICON_PLAY : ICON_PAUSE;
+    });
+  }
 
   const AVA = {
     acc:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5m5 14V9m5 10v-6m5 6V7"/></svg>',
@@ -583,7 +590,6 @@
     you:  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg>'
   };
   const WHO = { acc:['AI Accountant','Bank &amp; tax'], doc:['AI Document Assistant','Contracts'], coord:['AI Coordinator','Schedule'], inbox:['AI Inbox Assistant','Mail'], you:['You',''] };
-
   const S = [
     { mode:'morning briefing', time:'08:00', label:'Next day · 08:00 · Morning briefing', steps:[
       { w:'acc',  t:'Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, one needs your decision.' },
@@ -606,19 +612,13 @@
       { w:'you',  t:'Send it, and save a copy to the bank folder.' },
       { w:'coord',t:'Sent and filed. I\'ll post the bank\'s confirmation here when it arrives.' } ]}
   ];
-
   const raw = ms => new Promise(r => setTimeout(r, ms));
-  async function sleep(ms){ const end = Date.now() + ms; while (Date.now() < end) { if (document.hidden) { await raw(400); continue; } await raw(Math.min(120, Math.max(20, end - Date.now()))); } }
+  async function sleep(ms){ let left = ms; while (left > 0) { if (document.hidden || paused) { await raw(300); continue; } const t = Date.now(); await raw(Math.min(120, left)); left -= Date.now() - t; } }
   const make = h => { const d = document.createElement('div'); d.innerHTML = h.trim(); return d.firstChild; };
   const whoHTML = w => { const [n, d] = WHO[w]; return '<div class="who">' + n + (d ? ' <span class="dept">· ' + d + '</span>' : '') + '</div>'; };
-  const entryHTML = s => {
-    const you = s.w === 'you';
-    const chips = s.chips ? '<div class="chips">' + s.chips.map((c, i) => '<span class="chip' + (i === 0 ? ' ok' : '') + '">' + c + '</span>').join('') + '</div>' : '';
-    return '<div class="entry in' + (you ? ' you' : '') + '"><span class="ava' + (you ? ' you' : '') + '">' + AVA[s.w] + '</span><div>' + whoHTML(s.w) + '<p>' + s.t + '</p>' + chips + '</div></div>';
-  };
+  const entryHTML = s => { const you = s.w === 'you'; const chips = s.chips ? '<div class="chips">' + s.chips.map((c, i) => '<span class="chip' + (i === 0 ? ' ok' : '') + '">' + c + '</span>').join('') + '</div>' : ''; return '<div class="entry in' + (you ? ' you' : '') + '"><span class="ava' + (you ? ' you' : '') + '">' + AVA[s.w] + '</span><div>' + whoHTML(s.w) + '<p>' + s.t + '</p>' + chips + '</div></div>'; };
   const typingHTML = s => '<div class="entry in"><span class="ava">' + AVA[s.w] + '</span><div>' + whoHTML(s.w) + '<div class="typing"><i></i><i></i><i></i></div></div></div>';
   const prune = () => { while (feed.children.length > 14) feed.removeChild(feed.firstChild); };
-
   async function play(sc){
     feed.appendChild(make('<div class="divider in">' + sc.label + '</div>'));
     modeEl.textContent = sc.mode; timeEl.textContent = sc.time;
@@ -632,13 +632,7 @@
     }
     await sleep(3200);
   }
-
-  (async () => {
-    document.body.classList.add('chat-anim');
-    await sleep(7000);
-    let i = 1;
-    while (true) { await play(S[i % S.length]); i++; }
-  })();
+  (async () => { document.body.classList.add('chat-anim'); await sleep(7000); let i = 1; while (true) { await play(S[i % S.length]); i++; } })();
 })();
 </script>
 </body>
