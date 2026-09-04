@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232e5c48'/%3E%3Cpath d='M18 40 L30 20 L38 34 M34 40 L46 40' stroke='%23f4f2ea' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E"><link rel="preload" href="/assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/base.css">
+<title>Thank you — AI Office</title>
+<meta name="description" content="Your pilot request has been received.">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="site" aria-label="Main">
+  <div class="wrap nav-in">
+    <a class="logo" href="/" aria-label="AI Office, home">
+      <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2e5c48"/><path d="M18 40 L30 20 L38 34 M34 40 L46 40" stroke="#f4f2ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      AI Office
+    </a>
+    <div class="nav-links">
+      <a href="/#team">AI employees</a>
+      <a href="/#how">How it works</a>
+      <a href="/#why">Why us</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#pricing">Pricing</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-green" href="/#cta">Join the pilot</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/#team">AI employees</a>
+    <a href="/#how">How it works</a>
+    <a href="/#why">Why us</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#cta" style="color:var(--green-deep)">Join the pilot →</a>
+  </div>
+</nav>
+<main class="page" id="main">
+  <div class="wrap narrow">
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--tint);color:var(--green-deep);font-weight:700;padding:8px 14px;border-radius:999px;font-size:14px;margin-bottom:22px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Request received</div>
+    <h1>Thank you. We have your request.</h1>
+    <p class="meta">A person will reply within one business day.</p>
+    <p>We will come back with a couple of questions about your business and a time for a 30-minute call. If you do not hear from us in one business day, write to <a href="mailto:hello@ai-office.ge">hello@ai-office.ge</a> and we will fix it.</p>
+    <p style="margin-top:26px"><a class="btn btn-quiet" href="/">Back to ai-office.ge</a></p>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap foot">
+    <div class="foot-col">
+      <a class="logo" href="/" aria-label="AI Office, home">
+        <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#2e5c48"/><path d="M18 40 L30 20 L38 34 M34 40 L46 40" stroke="#f4f2ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        AI Office
+      </a>
+      <div>AI employees for small business back office. AI prepares the work, you approve it.</div>
+      <div class="foot-links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="mailto:hello@ai-office.ge">hello@ai-office.ge</a>
+      </div>
+    </div>
+    <div class="foot-legal">Individual Entrepreneur · Tbilisi, Georgia<br>© 2026 AI Office. All rights reserved.</div>
+  </div>
+</footer>
+<script>
+(() => {
+  const b = document.getElementById("burger"), m = document.getElementById("mobile-menu");
+  if (!b || !m) return;
+  const close = () => { document.body.classList.remove("menu-open"); b.setAttribute("aria-expanded","false"); b.setAttribute("aria-label","Open menu"); };
+  b.addEventListener("click", () => { const o = document.body.classList.toggle("menu-open"); b.setAttribute("aria-expanded", String(o)); b.setAttribute("aria-label", o ? "Close menu" : "Open menu"); });
+  m.querySelectorAll("a").forEach(a => a.addEventListener("click", close));
+})();
+</script>
+</body>
+</html>

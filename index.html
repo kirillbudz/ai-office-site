@@ -463,6 +463,7 @@
           </div>
           <input type="text" name="_gotcha" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" name="_subject" value="AI Office pilot request">
+          <input type="hidden" name="_next" value="https://ai-office.ge/thanks.html">
           <button class="btn btn-green" type="submit">Request early access <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
@@ -544,9 +545,16 @@
       form.replaceWith(box);
     };
     ['input', 'change'].forEach(ev => form.addEventListener(ev, e => { if (e.target.closest('.field')) e.target.closest('.field').classList.remove('invalid'); }));
+    const openedAt = Date.now();
+    let firstInteraction = 0;
+    form.addEventListener('focusin', () => { if (!firstInteraction) firstInteraction = Date.now(); }, { once: true });
     form.addEventListener('submit', async e => {
       e.preventDefault();
       status.className = 'form-status'; status.textContent = '';
+      // bot heuristics: honeypot filled, or filled in under 3 seconds with no focus events
+      const gotcha = form.querySelector('input[name=_gotcha]');
+      const tooFast = (Date.now() - openedAt) < 3000 || !firstInteraction;
+      if ((gotcha && gotcha.value) || tooFast) { done(); return; }
       if (!valid()) { status.className = 'form-status bad'; status.textContent = 'Please check the highlighted fields.'; return; }
       if (!live) { mailtoFallback(); return; }
       const btn = form.querySelector('button[type=submit]');
@@ -554,6 +562,9 @@
       try {
         const r = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
         if (r.ok) { done(); return; }
+        let body = null; try { body = await r.json(); } catch (_) {}
+        const msg = JSON.stringify(body || '').toLowerCase();
+        if (msg.includes('captcha') || msg.includes('recaptcha')) { form.submit(); return; }
         throw new Error('bad status');
       } catch (err) {
         btn.disabled = false;
