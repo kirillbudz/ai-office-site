@@ -1,12 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
-  <g fill="none" stroke="#2e5c48" opacity=".92">
-    <circle cx="60" cy="60" r="56" stroke-width="2.5"/>
-    <circle cx="60" cy="60" r="50" stroke-width="1" stroke-dasharray="2 3"/>
-  </g>
-  <g fill="#2e5c48" font-family="Hanken Grotesk, Arial, sans-serif" text-anchor="middle">
-    <text x="60" y="40" font-size="6.8" font-weight="700" letter-spacing="1">HUMAN IN THE LOOP</text>
-    <rect x="15" y="48" width="90" height="24" rx="3" fill="none" stroke="#2e5c48" stroke-width="2.2"/>
-    <text x="60" y="65.5" font-size="14" font-weight="800" letter-spacing="1">APPROVED</text>
-    <text x="60" y="85" font-size="6" font-weight="600" letter-spacing=".8">NO ACTION WITHOUT YOU</text>
-  </g>
+  <g fill="none" stroke="#2e5c48" opacity=".92"><circle cx="60" cy="60" r="56" stroke-width="2.5"/><circle cx="60" cy="60" r="49" stroke-width="1" stroke-dasharray="2 3"/></g>
+  <g transform="translate(36 22) scale(.75)" fill="none" stroke="#2e5c48" stroke-linecap="round" stroke-linejoin="round"><path d="M32 12H20a9 9 0 0 0-9 9v24a9 9 0 0 0 9 9h24a9 9 0 0 0 9-9V33" stroke-width="6.5"/><path d="M22 34l10 10 24-28" stroke-width="7.5"/></g>
+  <g fill="#2e5c48" font-family="Hanken Grotesk, Arial, sans-serif" text-anchor="middle"><text x="60" y="88" font-size="9.5" font-weight="800" letter-spacing="1.6">APPROVED</text><text x="60" y="100" font-size="5.6" font-weight="600" letter-spacing=".9">HUMAN IN THE LOOP</text></g>
 </svg>
