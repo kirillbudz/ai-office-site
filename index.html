@@ -52,7 +52,7 @@
 
   /* ---------- product window ---------- */
   .win-wrap{position:relative}
-  .stamp{position:absolute;top:-24px;right:-14px;z-index:5;width:92px;transform:rotate(7deg);pointer-events:none;filter:drop-shadow(0 4px 10px rgba(46,92,72,.15))}
+  .stamp{position:absolute;right:-30px;bottom:-30px;z-index:5;width:98px;transform:rotate(-8deg);pointer-events:none;filter:drop-shadow(0 4px 10px rgba(46,92,72,.15))}
   .win{background:var(--white);border:1px solid var(--line2);border-radius:16px;box-shadow:0 2px 4px rgba(30,40,35,.04),0 24px 56px -16px rgba(30,40,35,.18);overflow:hidden}
   .win-bar{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 18px;background:var(--green-deep);color:var(--green-ink)}
   .win-bar .dots{display:flex;gap:6.5px}
@@ -281,7 +281,7 @@
             <div class="entry">
               <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V5m5 14V9m5 10v-6m5 6V7"/></svg></span>
               <div><div class="who">AI Accountant <span class="dept">· Bank &amp; tax</span></div>
-              <p>Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, one needs your decision.</p></div>
+              <p>Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, <span class="hold">one needs your decision.</span></p></div>
             </div>
             <div class="entry">
               <span class="ava"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M7 3h7l5 5v13H7z"/></svg></span>
@@ -602,7 +602,7 @@
   const WHO = { acc:['AI Accountant','Bank &amp; tax'], doc:['AI Document Assistant','Contracts'], coord:['AI Coordinator','Schedule'], inbox:['AI Inbox Assistant','Mail'], you:['You',''] };
   const S = [
     { mode:'morning briefing', time:'08:00', label:'Next day · 08:00 · Morning briefing', steps:[
-      { w:'acc',  t:'Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, one needs your decision.' },
+      { w:'acc',  t:'Good morning. Yesterday: <b>14 payments in, 3 invoices received.</b> I matched them against the bank statement. Two are settled, <span class="hold">one needs your decision.</span>' },
       { w:'doc',  t:'Draft service agreement for the new client is ready, based on your standard template. Review before sending?', chips:['Approve','Edit','Ask why'], press:0 },
       { w:'you',  t:'Approve the agreement. <span class="hold">Hold the invoice,</span> I\'ll call them first.' },
       { w:'coord',t:'Done. Agreement sent. Invoice parked, reminder set for 10:00 tomorrow.' } ]},
